@@ -65,7 +65,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;line-height:1.7;paddi
 <svg class="dec" style="right:10px;bottom:-14px;width:92px" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6v44a8 8 0 0 0 16 0V6M10 6h24M14 30h16"/><path d="M52 6v44a8 8 0 0 0 16 0V6M48 6h24M52 36h16"/><circle cx="80" cy="22" r="3"/><circle cx="76" cy="40" r="2"/></svg>
 <div class="wrap"><h1 id="h1"></h1><p id="sub"></p></div></header>
 <main><div class="wrap" id="app"></div></main>
-<footer>جميع الحقوق محفوظة © 2026 - منصة الأستاذ حسين العيسي لتعلُّم الكيمياء | إعداد: أ. حسين بن محمد العيسي.</footer>
+<footer>جميع الحقوق محفوظة © 2026 - منصة الأستاذ حسين العيسي لتعلُّم الكيمياء | إعداد: أ. حسين بن محمد العيسي. <span style="opacity:.6">(الإصدار 3)</span></footer>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -266,6 +266,8 @@ var app=document.getElementById('app'),S={},L,SEC,GEN,fbOn=false,auth,db,tm,T=[]
 document.getElementById('h1').textContent='منصة '+CONFIG.platform;
 document.getElementById('sub').textContent='منصة | أ. حسين العيسي | التعليمية'+(CONFIG.school?' | '+CONFIG.school:'');
 function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function dberr(e){var c=(e&&e.code)||'',m=/permission/.test(c)?'قواعد Firestore لا تسمح بالعملية. تأكد أنها منشورة في المشروع hussain-chem48.':/not-found|failed-precondition/.test(c)?'قاعدة بيانات Firestore غير منشأة في هذا المشروع.':/unavailable/.test(c)?'تعذّر الوصول إلى الخادم. تحقق من الإنترنت.':'';return '<p>'+m+'</p><p class="note">رمز الخطأ: '+esc(c||String(e))+'</p><button class="go" id="rl">إعادة المحاولة</button>'}
+function showErr(t,e){go('<div class="card"><h2>'+t+'</h2>'+dberr(e)+'</div>');$('rl').onclick=function(){location.reload()}}
 function go(h){clearInterval(tm);app.innerHTML=h;window.scrollTo(0,0)}
 function on(sel,fn){app.querySelectorAll(sel).forEach(function(b){b.onclick=function(){fn(b.dataset)}})}
 function $(i){return document.getElementById(i)}
@@ -284,7 +286,7 @@ function login(){
 function afterAuth(u){
  S.user=u;S.uid=u.uid;S.res=null;var ref=db.collection('students').doc(u.uid);
  (S.name&&S.sec?ref.set({name:S.name,section:S.sec,book:S.book,email:u.email||'',seen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}).then(function(){return 1}):ref.get().then(function(d){if(d.exists){var x=d.data();S.name=x.name;S.sec=x.section;S.book=x.book;return 1}return 0}))
- .then(function(ok){ok?lessons():info()},function(){go('<div class="card"><h2>تعذّر الاتصال</h2><p>تحقق من الإنترنت ثم أعد فتح الصفحة.</p></div>')})}
+ .then(function(ok){ok?lessons():info()},function(e){showErr('تعذّر الاتصال بقاعدة البيانات',e)})}
 function lessons(){
  var B=BOOKS[S.book];
  var get=S.res?Promise.resolve(S.res):db.collection('results').where('uid','==',S.uid).get().then(function(q){var m={};q.forEach(function(d){m[d.data().lessonId]=d.data()});return m});
@@ -297,7 +299,7 @@ function lessons(){
   h+='<button class="go alt" id="cb">تغيير الكتاب</button> '+(fbOn?'<button class="go alt" id="so">خروج</button> ':'')+(isAdmin()?'<button class="go" id="ad">لوحة المعلم</button>':'')+'</div>';
   go(h);on('[data-l]',function(d){openL(d.l)});$('cb').onclick=info;
   if($('so'))$('so').onclick=function(){S={};auth.signOut()};if($('ad'))$('ad').onclick=admin},
-  function(){go('<div class="card"><h2>تعذّر تحميل نتائجك</h2><p>تحقق من الإنترنت ثم أعد فتح الصفحة.</p></div>')})}
+  function(e){showErr('تعذّر تحميل نتائجك',e)})}
 function openL(id){
  var num=id.slice(S.book.length+1),t='';BOOKS[S.book].ch.forEach(function(c){c[1].forEach(function(l){if(l[0]===num)t=l[1]})});
  L=Object.assign({},DEF,CONFIG.lessons[id]||{},{id:id,num:num,title:t});SEC=CONTENT[id].sec;GEN=CONTENT[id].gen;
