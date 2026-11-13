@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>منصة شغف الكيمياء التعليمية | أ. حسين العيسي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#f3f8f6;--surface:#fff;--ink:#12272b;--muted:#4d6468;--brand:#0e5560;--brand-ink:#fff;--accent:#e8a33d;--line:#cfe0dc;--ok:#1b7f4b;--okbg:#dff3e7;--bad:#b3392f;--badbg:#fbe5e2;--hero:#0e3b43;--hero-ink:#f3f8f6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1a1d;--surface:#14282c;--ink:#e6f1ef;--muted:#9bb5b9;--brand:#5cc3cf;--brand-ink:#0c1a1d;--accent:#f0b655;--line:#25414a;--ok:#6fd49b;--okbg:#17382a;--bad:#ff9a8f;--badbg:#3d1e1b;--hero:#081316;--hero-ink:#e6f1ef}}
+:root[data-theme="dark"]{--bg:#0c1a1d;--surface:#14282c;--ink:#e6f1ef;--muted:#9bb5b9;--brand:#5cc3cf;--brand-ink:#0c1a1d;--accent:#f0b655;--line:#25414a;--ok:#6fd49b;--okbg:#17382a;--bad:#ff9a8f;--badbg:#3d1e1b;--hero:#081316;--hero-ink:#e6f1ef}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Cairo",system-ui,sans-serif;line-height:1.85;font-size:16px}
+.wrap{max-width:720px;margin:0 auto}
+header{background:var(--hero);color:var(--hero-ink);padding:26px 18px 22px}
+header h1{margin:0;font-size:clamp(21px,5vw,30px);font-weight:800;line-height:1.5}
+header h1 b{color:var(--accent)}
+header p{margin:4px 0 0;opacity:.85;font-size:15px}
+main{padding:20px 16px 60px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:14px}
+h2{font-size:20px;margin:0 0 10px;color:var(--brand)}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+button,.btn{font:inherit;cursor:pointer}
+.go,.btn{display:inline-block;font-weight:700;margin-top:14px;padding:11px 22px;border:0;border-radius:10px;background:var(--brand);color:var(--brand-ink);text-decoration:none}
+.go:disabled{opacity:.45;cursor:not-allowed}
+.alt{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.steps{display:flex;gap:6px;margin-bottom:14px}
+.steps i{flex:1;height:7px;border-radius:7px;background:var(--line)}
+.steps i.on{background:var(--accent)}
+.steps i.dn{background:var(--brand)}
+.meta{color:var(--muted);font-size:14px;margin-bottom:6px;display:flex;justify-content:space-between}
+.f{direction:ltr;unicode-bidi:isolate;display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:0 8px;font-family:ui-monospace,Menlo,monospace;font-size:14px}
+.ex{margin:12px 0;padding:12px 14px;border-radius:10px;background:var(--bg);border-right:4px solid var(--accent)}
+.q{font-size:18px;font-weight:700;margin:0 0 12px}
+.opt{display:block;width:100%;text-align:right;padding:12px 14px;margin-bottom:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok);font-weight:700}
+.opt.bad{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.exp{margin-top:10px;padding:10px 14px;border-radius:10px;background:var(--bg);border-right:4px solid var(--accent)}
+.score{font-size:52px;font-weight:800;color:var(--brand);line-height:1.2}
+.res{border:2px dashed var(--accent);border-radius:12px;padding:14px;margin-top:12px}
+.res div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:4px 0}
+.res div:last-child{border:0}
+.note{color:var(--muted);font-size:14px}
+button:focus-visible,input:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.pk{display:grid;gap:10px}.pk button{padding:16px;font-weight:700;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;font-size:17px}
+.pk button:hover{border-color:var(--brand)}
+h3{font-size:16px;margin:16px 0 8px;color:var(--brand)}
+.ls{display:grid;gap:8px;margin-bottom:12px}.ls button{display:flex;justify-content:space-between;gap:10px;text-align:right;padding:12px 14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px}
+.ls button:disabled{opacity:.5;cursor:not-allowed}.ls em{font-style:normal;color:var(--brand);font-weight:700;white-space:nowrap}
+.tw{overflow-x:auto}.tb{border-collapse:collapse;width:100%;font-size:14px}.tb th,.tb td{border:1px solid var(--line);padding:6px 8px;text-align:right;white-space:nowrap}
+
+header{position:relative;overflow:hidden}
+header .wrap{position:relative}
+header .dec{position:absolute;color:var(--accent);opacity:.25;pointer-events:none}
+.go svg{width:18px;height:18px;vertical-align:-3px;margin-inline-start:6px}
+body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160' fill='none' stroke='%230e5560' stroke-opacity='.08' stroke-width='2'%3E%3Cpath d='M30 20l14 8v16l-14 8-14-8V28z'/%3E%3Ccircle cx='110' cy='40' r='9'/%3E%3Cpath d='M44 28l57 10M110 49v32'/%3E%3Ccircle cx='110' cy='90' r='9'/%3E%3Cpath d='M30 110l14 8v16l-14 8-14-8v-16z'/%3E%3Cellipse cx='122' cy='132' rx='18' ry='6'/%3E%3Cellipse cx='122' cy='132' rx='18' ry='6' transform='rotate(60 122 132)'/%3E%3C/svg%3E")}
+footer{text-align:center;color:var(--muted);font-size:13px;line-height:1.7;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--surface)}
+.wm{position:fixed;inset:0;z-index:50;pointer-events:none;display:flex;flex-wrap:wrap;gap:34px 46px;align-content:center;justify-content:center;transform:rotate(-22deg) scale(1.4);opacity:.07;font-weight:800;font-size:20px;overflow:hidden;color:var(--ink)}
+.err{color:var(--bad);font-weight:700;font-size:14px;margin:6px 0 0}
+.go.big{display:block;width:100%;padding:15px 22px;font-size:18px;margin-top:20px}
+.fbk{display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:12px 14px;border-radius:12px;border:1px solid}
+.fbk.good{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.fbk.bad{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.fi{font-size:26px;line-height:1;animation:pop .35s}
+.fe{color:var(--ink);font-weight:400;margin-top:4px}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<header><svg class="dec" style="left:-20px;top:-26px;width:170px" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="50" cy="50" rx="46" ry="16"/><ellipse cx="50" cy="50" rx="46" ry="16" transform="rotate(60 50 50)"/><ellipse cx="50" cy="50" rx="46" ry="16" transform="rotate(120 50 50)"/><circle cx="50" cy="50" r="6" fill="currentColor"/></svg>
+<svg class="dec" style="right:10px;bottom:-14px;width:92px" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6v44a8 8 0 0 0 16 0V6M10 6h24M14 30h16"/><path d="M52 6v44a8 8 0 0 0 16 0V6M48 6h24M52 36h16"/><circle cx="80" cy="22" r="3"/><circle cx="76" cy="40" r="2"/></svg>
+<div class="wrap"><h1 id="h1"></h1><p id="sub"></p></div></header>
+<main><div class="wrap" id="app"></div></main>
+<footer>جميع الحقوق محفوظة © 2026 - منصة الأستاذ حسين العيسي لتعلُّم الكيمياء | إعداد: أ. حسين بن محمد العيسي. <span style="opacity:.6">(الإصدار 4.4)</span></footer>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ===== مولّدات الأسئلة ===== */
+
+function R(a){return a[Math.floor(Math.random()*a.length)]}
+function sh(a){a=a.slice();for(var n=a.length-1;n>0;n--){var j=Math.floor(Math.random()*(n+1)),t=a[n];a[n]=a[j];a[j]=t}return a}
+function fm(x){return String(parseFloat(x.toFixed(2)))}
+function num(q,ans,u,e,mx,trap){
+ var set=[ans],c=sh([ans*2,ans/2,ans*4,ans/4,ans*3,ans+1,ans+.5,ans+2,ans+10]);
+ if(trap!=null)c.unshift(trap);
+ for(var i=0;i<c.length&&set.length<4;i++){var v=parseFloat(c[i].toFixed(2));if(v>0&&v<=(mx||1e9)&&set.indexOf(v)<0)set.push(v)}
+ for(var k=1;set.length<4;k++){var w=parseFloat((ans*(1+k/10)).toFixed(2));if(w<=(mx||1e9)&&set.indexOf(w)<0)set.push(w);else{w=parseFloat((ans*(1-k/20)).toFixed(2));if(w>0&&set.indexOf(w)<0)set.push(w)}}
+ set=sh(set);
+ return{q:q,o:set.map(function(v){return fm(v)+" "+u}),a:set.indexOf(ans),e:e}}
+function g1(){var t=R([50,100,200,250,400]),p=R([5,10,20,25]),s=t*p/100,w=t-s;
+ return num("أُذيب "+fm(s)+" جم من مادة في "+fm(w)+" جم ماء. ما النسبة المئوية بالكتلة للمذاب؟",p,"%","كتلة المحلول = "+fm(s)+" + "+fm(w)+" = "+t+" جم، والنسبة = "+fm(s)+" ÷ "+t+" × 100 = "+p+"%.",100)}
+function g2(){var n=R([.5,1,1.5,2,2.5]),V=R([.5,1,2]),m=n*40,M=n/V;
+ return num("أُذيب "+m+" جم من NaOH (الكتلة المولية 40 جم/مول) في الماء ليصبح حجم المحلول "+V+" لتر. ما مولاريته؟",M,"M","n = "+m+" ÷ 40 = "+n+" مول، ثم M = "+n+" ÷ "+V+" = "+fm(M)+" M.",1e9,n)}
+function g3(){var n=R([.5,1,2,3]),k=R([.5,1,2]),m=n/k;
+ return num("أُذيب "+n+" مول من مادة في "+k+" كجم من الماء. ما مولالية المحلول؟",m,"m","m = مولات المذاب ÷ كتلة المذيب بالكجم = "+n+" ÷ "+k+" = "+fm(m)+" m.")}
+function g4(){var M1=R([6,8,12]),M2=R([1,2,3,4].filter(function(x){return x<M1&&M1%x===0})),V1=R([50,100,200]),V2=M1*V1/M2,w=V2-V1;
+ return num("أُخذ "+V1+" مل من محلول تركيزه "+M1+" M وأُضيف إليه ماء حتى صار تركيزه "+M2+" M. كم مل ماء أُضيف؟",w,"مل","M₁V₁ = M₂V₂ ⇒ "+M1+" × "+V1+" = "+M2+" × V₂ ⇒ V₂ = "+V2+" مل، والماء المضاف = "+V2+" − "+V1+" = "+w+" مل.",1e9,V2)}
+function g5(){var p=R([[1,3],[1,1],[2,2],[3,1],[2,6],[1,4],[3,7]]),x=p[0]/(p[0]+p[1]);
+ return num("محلول فيه "+p[0]+" مول من المذاب و "+p[1]+" مول من المذيب. ما الكسر المولي للمذاب؟",x,"","X = "+p[0]+" ÷ ("+p[0]+" + "+p[1]+") = "+fm(x)+".",1)}
+var CB=[
+{q:"محلول فيه كمية كبيرة من المذاب في حجم صغير، يوصف بأنه؟",o:["مركّز","مخفّف","معلّق","غير متجانس"],a:0,e:"المحلول المركّز يحتوي مذاباً كثيراً نسبةً إلى حجمه."},
+{q:"أي التعبيرات الآتية يعتمد على كتلة المذيب بالكيلوجرام؟",o:["المولارية","المولالية","النسبة المئوية بالحجم","الكسر المولي"],a:1,e:"المولالية = مولات المذاب ÷ كتلة المذيب (كجم)."},
+{q:"عند تخفيف محلول بإضافة الماء، يبقى ثابتاً؟",o:["عدد مولات المذاب","حجم المحلول","التركيز","كتلة المحلول"],a:0,e:"الماء لا يضيف مذاباً، لذلك M₁V₁ = M₂V₂."},
+{q:"كتلة المحلول تساوي؟",o:["كتلة المذاب + كتلة المذيب","كتلة المذيب − كتلة المذاب","كتلة المذاب فقط","حجم المذيب فقط"],a:0,e:"المحلول يتكون من المذاب والمذيب معاً."},
+{q:"وحدة المولارية هي؟",o:["مول لكل لتر من المحلول","مول لكل كجم من المذيب","جرام لكل مول","لتر لكل مول"],a:0,e:"المولارية = مولات المذاب ÷ حجم المحلول باللتر."}];
+function gc(u){var i;do{i=Math.floor(Math.random()*CB.length)}while(u.indexOf(i)>-1&&u.length<CB.length);u.push(i);var b=CB[i],c=sh(b.o.map(function(t,k){return{t:t,r:k===b.a}}));return{q:b.q,o:c.map(function(x){return x.t}),a:c.findIndex(function(x){return x.r}),e:b.e}}
+function makeTest(n){var G=[g1,g2,g3,g4,g5,gc,gc],used=[],L=[];for(var i=0;i<n;i++){var g=G[i%G.length];L.push(g===gc?gc(used):g())}return sh(L)}
+
+var SEC12=[
+{t:"ما معنى التركيز؟",h:"<p>التركيز يخبرنا كم من المذاب موجود في كمية معينة من المحلول أو المذيب. نصف المحلول وصفاً عاماً: <b>مركّز</b> إن احتوى مذاباً كثيراً، و<b>مخفّف</b> إن احتوى مذاباً قليلاً.</p><p>لكن الوصف العام لا يكفي في الكيمياء، فنعبّر عن التركيز بأرقام: نسبة مئوية، أو مولارية، أو مولالية، أو كسر مولي.</p>",
+ c:{q:"أي العبارات الآتية تمثّل وصفاً كمّياً للتركيز؟",o:["محلول مركّز","محلول فاتح اللون","المولارية = 2 M","محلول حلو المذاق"],a:2,e:"الوصف الكمّي يعطي رقماً، مثل المولارية 2 M."}},
+{t:"النسبة المئوية بالكتلة",h:"<p>هي نسبة كتلة المذاب إلى كتلة المحلول كله:</p><p><span class='f'>% بالكتلة = كتلة المذاب ÷ كتلة المحلول × 100</span></p><p>وكتلة المحلول = كتلة المذاب + كتلة المذيب.</p><div class='ex'><b>مثال:</b> أُذيب 15 جم ملح في 135 جم ماء. كتلة المحلول = 150 جم، والنسبة = 15 ÷ 150 × 100 = <b>10%</b>.</div>",
+ c:{q:"محلول فيه 20 جم مذاب و 80 جم مذيب. ما كتلة المحلول؟",o:["100 جم","80 جم","20 جم","60 جم"],a:0,e:"20 + 80 = 100 جم."}},
+{t:"المولارية",h:"<p>المولارية هي عدد مولات المذاب في لتر واحد من <b>المحلول</b>:</p><p><span class='f'>M = n ÷ V(L)</span> &nbsp; و &nbsp; <span class='f'>n = الكتلة ÷ الكتلة المولية</span></p><div class='ex'><b>مثال:</b> أُذيب 58.5 جم NaCl (الكتلة المولية 58.5) ليصير حجم المحلول 2 لتر. n = 58.5 ÷ 58.5 = 1 مول، إذن M = 1 ÷ 2 = <b>0.5 M</b>.</div>",
+ c:{q:"عند حساب المولارية نقسم عدد مولات المذاب على؟",o:["حجم المحلول باللتر","كتلة المذيب بالكجم","كتلة المحلول بالجرام","حجم المذيب بالمل"],a:0,e:"المولارية تعتمد على حجم المحلول باللتر."}},
+{t:"المولالية والكسر المولي",h:"<p><span class='f'>m = مولات المذاب ÷ كتلة المذيب (كجم)</span></p><p><span class='f'>X = مولات المادة ÷ المولات الكلية في المحلول</span></p><p>المولالية تعتمد على الكتلة، فلا تتأثر بتغير درجة الحرارة، بعكس المولارية التي يتغير حجمها بالحرارة.</p><div class='ex'><b>مثال:</b> 2 مول مذاب في 4 كجم ماء ⇒ m = 2 ÷ 4 = <b>0.5 m</b>.</div>",
+ c:{q:"ما الفرق الأساسي بين المولالية والمولارية؟",o:["المولالية بدلالة كتلة المذيب (كجم) والمولارية بدلالة حجم المحلول (لتر)","المولالية بدلالة حجم المحلول والمولارية بدلالة كتلة المذيب","لا فرق بينهما","المولالية تُقاس بالجرام"],a:0,e:"انتبه للمقام: كجم مذيب في المولالية، ولتر محلول في المولارية."}},
+{t:"التخفيف",h:"<p>عند إضافة ماء إلى محلول يزداد حجمه ويقل تركيزه، لكن عدد مولات المذاب يبقى ثابتاً. لذلك:</p><p><span class='f'>M₁V₁ = M₂V₂</span></p><div class='ex'><b>مثال:</b> 100 مل من محلول 6 M نخففه إلى 2 M. 6 × 100 = 2 × V₂ ⇒ V₂ = 300 مل، فالماء المضاف = 300 − 100 = <b>200 مل</b>.</div>",
+ c:{q:"عند تخفيف محلول بالماء، ما الذي يتغير؟",o:["عدد مولات المذاب","حجم المحلول وتركيزه","نوع المذاب","كتلة المذاب"],a:1,e:"الحجم يزداد والتركيز يقل، أما مولات المذاب فثابتة."}}
+];
+/* ===== إعدادات المعلم: عدّل هنا فقط ===== */
+var CONFIG={
+ platform:"شغف الكيمياء التعليمية",
+ school:"",                                  // اسم المدرسة (اختياري)
+ firebase:{apiKey:"AIzaSyDitigx2uo31mDKHfVXV9UJKp_Vi6ptU5k",authDomain:"hussain-chem48.firebaseapp.com",projectId:"hussain-chem48",storageBucket:"hussain-chem48.firebasestorage.app",messagingSenderId:"382212791283",appId:"1:382212791283:web:85a213a76afa7f73349086"}, // من إعدادات مشروع Firebase
+ adminEmail:"hussainalessi448@gmail.com",
+ codePrefix:"CHAM",            // بادئة رموز الشعب: CHAM101 = أول ثانوي شعبة 1، CHAM201 = ثاني، CHAM301 = ثالث
+ sections:{g1:8,g2:8,g3:8},    // عدد الشعب في كل صف
+ maxLeaves:0,                  // مرات مغادرة الصفحة المسموحة أثناء الاختبار قبل إلغاء المحاولة (0 = لا يُسمح)                              // بريدك في Google لعرض لوحة النتائج
+ videos:{},   // روابط يوتيوب: "g2a-7-1":"https://youtu.be/..."
+ lessons:{}   // لتخصيص درس: "g3-1-2":{pass:80,nQ:8,points:2,minRead:20}
+};
+var DEF={minRead:15,nQ:6,pass:70,points:2};
+var BOOKS={
+ g1:{n:"كيمياء 1",g:"أول ثانوي",ch:[
+  ["الفصل 1: مقدمة في علم الكيمياء",[["1-1","قصة مادتين"],["1-2","الكيمياء والمادة"],["1-3","الطرائق العلمية"],["1-4","البحث العلمي"]]],
+  ["الفصل 2: المادة، الخواص والتغيرات",[["2-1","خواص المادة"],["2-2","تغيرات المادة"],["2-3","المخاليط"],["2-4","العناصر والمركبات"]]],
+  ["الفصل 3: تركيب الذرة",[["3-1","الأفكار القديمة للمادة"],["3-2","تعريف الذرة"],["3-3","كيف تختلف الذرات؟"],["3-4","الأنوية غير المستقرة والتحلل الإشعاعي"]]],
+  ["الفصل 4: التفاعلات الكيميائية",[["4-1","التفاعلات والمعادلات"],["4-2","تصنيف التفاعلات الكيميائية"],["4-3","التفاعلات في المحاليل المائية"]]],
+  ["الفصل 5: المول",[["5-1","قياس المادة"],["5-2","الكتلة والمول"],["5-3","مولات المركبات"]]]]},
+ g2a:{n:"كيمياء 2-1",g:"ثاني ثانوي - الفصل الأول",ch:[
+  ["الفصل 1: الإلكترونات في الذرات",[["1-1","الضوء وطاقة الكم"],["1-2","نظرية الكم والذرة"],["1-3","التوزيع الإلكتروني"]]],
+  ["الفصل 2: الجدول الدوري والتدرج في خواص العناصر",[["2-1","تطور الجدول الدوري الحديث"],["2-2","تصنيف العناصر"],["2-3","تدرج خواص العناصر"]]],
+  ["الفصل 3: المركبات الأيونية والفلزات",[["3-1","تكون الأيون"],["3-2","الروابط الأيونية والمركبات الأيونية"],["3-3","صيغ المركبات الأيونية وأسماؤها"],["3-4","الروابط الفلزية وخواص الفلزات"]]],
+  ["الفصل 4: الروابط التساهمية",[["4-1","الرابطة التساهمية"],["4-2","تسمية الجزيئات"],["4-3","التراكيب الجزيئية"],["4-4","أشكال الجزيئات"],["4-5","الكهروسالبية والقطبية"]]],
+  ["الفصل 5: الحسابات الكيميائية",[["5-1","الصيغة الأولية والصيغة الجزيئية"],["5-2","صيغ الأملاح المائية"],["5-3","المقصود بالحسابات الكيميائية"],["5-4","حسابات المعادلات الكيميائية"],["5-5","المادة المحددة للتفاعل"],["5-6","نسبة المردود المئوية"]]],
+  ["الفصل 6: حالات المادة",[["6-1","الغازات"],["6-2","قوى التجاذب"],["6-3","المواد السائلة والمواد الصلبة"],["6-4","تغيرات الحالة الفيزيائية"]]],
+  ["الفصل 7: الغازات",[["7-1","قوانين الغازات"],["7-2","قانون الغاز المثالي"],["7-3","الحسابات المتعلقة بالغازات"]]]]},
+ g2b:{n:"كيمياء 2-2",g:"ثاني ثانوي - الفصل الثاني",ch:[
+  ["الفصل 1: الطاقة والتغيرات الكيميائية",[["1-1","الطاقة"],["1-2","الحرارة"],["1-3","المعادلات الكيميائية الحرارية"],["1-4","حساب التغير في المحتوى الحراري"]]],
+  ["الفصل 2: سرعة التفاعلات الكيميائية",[["2-1","نظرية التصادم وسرعة التفاعل الكيميائي"],["2-2","العوامل المؤثرة في سرعة التفاعل الكيميائي"],["2-3","قوانين سرعة التفاعل الكيميائي"]]],
+  ["الفصل 3: الاتزان الكيميائي",[["3-1","حالة الاتزان الديناميكي"],["3-2","العوامل المؤثرة في الاتزان الكيميائي"],["3-3","استعمال ثوابت الاتزان"]]],
+  ["الفصل 4: الهيدروكربونات",[["4-1","مقدمة إلى الهيدروكربونات"],["4-2","الألكانات"],["4-3","الألكينات والألكاينات"],["4-4","متشكلات الهيدروكربونات"],["4-5","الهيدروكربونات الأروماتية"]]],
+  ["الفصل 5: مشتقات المركبات الهيدروكربونية وتفاعلاتها",[["5-1","هاليدات الألكيل وهاليدات الأريل"],["5-2","الكحولات والإيثرات والأمينات"],["5-3","مركبات الكربونيل"],["5-4","تفاعلات أخرى للمركبات العضوية"],["5-5","البوليمرات"]]],
+  ["الفصل 6: المركبات العضوية الحيوية",[["6-1","البروتينات"],["6-2","الكربوهيدرات"],["6-3","الليبيدات"],["6-4","الأحماض النووية"]]]]},
+ g3:{n:"كيمياء 3",g:"ثالث ثانوي",ch:[
+  ["الفصل 1: المخاليط والمحاليل",[["1-1","أنواع المخاليط"],["1-2","تركيز المحلول"],["1-3","العوامل المؤثرة في الذوبان"],["1-4","الخواص الجامعة للمحاليل"]]],
+  ["الفصل 2: الأحماض والقواعد",[["2-1","مقدمة في الأحماض والقواعد"],["2-2","قوة الأحماض والقواعد"],["2-3","أيونات الهيدروجين والرقم الهيدروجيني"],["2-4","التعادل"]]],
+  ["الفصل 3: تفاعلات الأكسدة والاختزال",[["3-1","الأكسدة والاختزال"],["3-2","وزن معادلات الأكسدة والاختزال"]]],
+  ["الفصل 4: الكيمياء الكهربائية",[["4-1","الخلايا الجلفانية"],["4-2","البطاريات"],["4-3","التحليل الكهربائي"]]]]}
+};
+var CONTENT={"g3-1-2":{sec:SEC12,gen:makeTest}};
+var W=[];
+var MSG='',LV=0,INTEST=false,unsub=null,GR={g1:['g1'],g2:['g2a','g2b'],g3:['g3']};
+function codeInfo(v){var m=String(v||'').trim().toUpperCase().match(new RegExp('^'+CONFIG.codePrefix.toUpperCase()+'([123])([0-9]{2})$'));if(!m)return null;var g='g'+m[1],n=+m[2];if(n<1||n>(CONFIG.sections[g]||0))return null;return{grade:g,section:String(n),code:m[0]}}
+function wm(){var t='<span>'+esc(S.name)+'</span>';return '<div class="wm" aria-hidden="true">'+new Array(60).join(t)+'</div>'}
+function mkRec(p,ok,pts,att){return{uid:S.uid,lessonId:L.id,title:L.title,book:S.book,name:S.name,section:S.sec,email:S.user?S.user.email||'':'',via:S.code?'code':'google',code:S.code||'',leaves:LV,percent:p,passed:ok,points:pts,attempts:att}}
+function cancelT(){INTEST=false;var prev=S.res&&S.res[L.id],att=(prev?prev.attempts:0)+1,rec=mkRec(0,false,0,att);rec.cancelled=true;S.res=S.res||{};S.res[L.id]=rec;
+ if(fbOn)db.collection('results').doc(S.uid+'_'+L.id).set(Object.assign({},rec,{updatedAt:firebase.firestore.FieldValue.serverTimestamp()})).catch(function(){});
+ go('<div class="card"><h2>أُلغيت محاولتك</h2><p>غادرت صفحة الاختبار قبل إنهائه، ولذلك احتُسبت محاولة غير ناجحة وسُجّل ذلك لمعلمك. يمكنك البدء بمحاولة جديدة بأسئلة مختلفة.</p><button class="go" id="rt">محاولة جديدة</button> <button class="go alt" id="bl">رجوع للدروس</button></div>');$('rt').onclick=test;$('bl').onclick=lessons}
+function kick(){if(unsub){unsub();unsub=null}INTEST=false;MSG='سُجّل دخول بحسابك من جهاز أو نافذة أخرى، فأُغلقت هذه الجلسة.';S={};auth.signOut()}
+document.addEventListener('visibilitychange',function(){if(INTEST&&document.hidden){LV++;if(LV>CONFIG.maxLeaves)cancelT()}});
+function cq(B,u){var i;do{i=Math.floor(Math.random()*B.length)}while(u.indexOf(i)>-1&&u.length<B.length);u.push(i);var b=B[i],c=sh(b.o.map(function(t,k){return{t:t,r:k===b.a}}));return{q:b.q,o:c.map(function(x){return x.t}),a:c.findIndex(function(x){return x.r}),e:b.e}}
+var GOOD=['أحسنت! إجابة صحيحة','ممتاز! استمر على هذا المستوى','رائع! فهمت الفكرة','بارك الله فيك، إجابة صحيحة','عمل جميل، واصل التقدم'],BAD=['لا بأس! الخطأ أول طريق الفهم، وستتذكر الإجابة الصحيحة بإذن الله','حاول مرة أخرى، ركّز على الشرح وستتقدم','إجابتك غير صحيحة، لكنك على الطريق الصحيح','لا تيأس! راجع الشرح وستنجح في المرة القادمة'];
+function fbBox(ok,e){return '<div class="fbk '+(ok?'good':'bad')+'"><div class="fi">'+(ok?'✔':'✖')+'</div><div><b>'+R(ok?GOOD:BAD)+'</b><div class="fe">'+e+'</div></div></div>'}
+function FAC(G,B){return function(n){var u=[],L=[];for(var i=0;i<n;i++){var g=G[i%G.length];L.push(g===0?cq(B,u):g())}return sh(L)}}
+function vid(){var u=CONFIG.videos[L.id];return u&&/^https:\/\//.test(u)?'<p><a class="btn alt" target="_blank" rel="noopener" href="'+esc(u)+'">شاهد شرح الدرس على يوتيوب</a></p>':''}
+function fbk(p){var m=p>=90?'أداؤك رائع، فهمت الدرس بعمق.':p>=L.pass?'أحسنت، تجاوزت حد النجاح. ركّز على مراجعة ما أخطأت فيه.':p>=50?'اقتربت من النجاح. راجع الأجزاء الصعبة وأعد المحاولة.':'لا بأس، أعد قراءة الدرس بتأنٍّ ثم حاول مجدداً.';
+ var h='<div class="exp"><b>تغذية راجعة:</b> '+m+'</div>';
+ if(W.length)h+='<h3>راجع أخطاءك</h3>'+W.map(function(w){return '<div class="exp"><b>'+w.q+'</b><br>إجابتك: '+w.y+'<br>الصحيح: '+w.a+'<br>'+w.e+'</div>'}).join('');return h}
+/* ===== الغازات: درس 7-1 ===== */
+function gB(){var P1,V1,P2,V2;do{P1=R([1,2,3]);V1=R([4,6,8,12]);P2=R([2,4,6]);V2=P1*V1/P2}while(P2<=P1||V2*2%1!==0);
+ return num("غاز حجمه "+V1+" لتر تحت ضغط "+P1+" atm. ضُغط عند ثبوت درجة الحرارة حتى صار ضغطه "+P2+" atm. ما حجمه الجديد؟",V2,"لتر","بويل: P₁V₁ = P₂V₂ ⇒ "+P1+" × "+V1+" = "+P2+" × V₂ ⇒ V₂ = "+fm(V2)+" لتر.",1e9,V1*P2/P1)}
+function gC(){var pr=R([[27,127],[27,327],[-73,27],[127,527]]),T1=pr[0]+273,T2=pr[1]+273,V1,V2;do{V1=R([3,4,6,8]);V2=V1*T2/T1}while(V2*4%1!==0);
+ return num("غاز حجمه "+V1+" لتر عند "+pr[0]+"°C. سُخّن عند ثبوت الضغط إلى "+pr[1]+"°C. ما حجمه الجديد؟",V2,"لتر","حوّل إلى الكلفن: T₁ = "+T1+" K و T₂ = "+T2+" K. شارل: V₂ = V₁ × T₂ ÷ T₁ = "+V1+" × "+T2+" ÷ "+T1+" = "+fm(V2)+" لتر.",1e9,V1*pr[1]/pr[0])}
+function gG(){var P1,T1,T2,P2;do{P1=R([1,2,3,4]);T1=R([200,300,400]);T2=R([300,400,600,800]);P2=P1*T2/T1}while(T2<=T1||P2*4%1!==0);
+ return num("وعاء مغلق (حجمه ثابت) فيه غاز ضغطه "+P1+" atm عند "+T1+" K. سُخّن إلى "+T2+" K. ما ضغطه الجديد؟",P2,"atm","جاي-لوساك: P₂ = P₁ × T₂ ÷ T₁ = "+P1+" × "+T2+" ÷ "+T1+" = "+fm(P2)+" atm.")}
+function gM(){var P1,V1,T1,P2,T2,V2;do{P1=R([1,2,4]);V1=R([2,4,6]);T1=R([200,300]);P2=R([1,2,4]);T2=R([300,400,600]);V2=P1*V1*T2/(T1*P2)}while(V2*4%1!==0||V2===V1);
+ return num("غاز حجمه "+V1+" لتر عند ضغط "+P1+" atm ودرجة "+T1+" K. ما حجمه عند ضغط "+P2+" atm ودرجة "+T2+" K؟",V2,"لتر","القانون الجامع: V₂ = (P₁ × V₁ × T₂) ÷ (T₁ × P₂) = ("+P1+" × "+V1+" × "+T2+") ÷ ("+T1+" × "+P2+") = "+fm(V2)+" لتر.")}
+var B71=[
+{q:"أي قانون يربط الحجم بالضغط عند ثبوت درجة الحرارة؟",o:["بويل","شارل","جاي-لوساك","أفوجادرو"],a:0,e:"بويل: P₁V₁ = P₂V₂ عند ثبوت درجة الحرارة وكمية الغاز."},
+{q:"في قوانين الغازات يجب استعمال درجة الحرارة بوحدة؟",o:["الكلفن","السلسيوس","الفهرنهايت","أي وحدة"],a:0,e:"K = °C + 273، ولا نستعمل السلسيوس لأنه قد يكون صفراً أو سالباً."},
+{q:"عند ثبوت الضغط وزيادة درجة حرارة الغاز، فإن حجمه؟",o:["يزداد","يقل","لا يتغير","يصبح صفراً"],a:0,e:"شارل: الحجم يتناسب طردياً مع درجة الحرارة بالكلفن."},
+{q:"عند ثبوت الحجم وزيادة درجة حرارة الغاز، فإن ضغطه؟",o:["يزداد","يقل","لا يتغير","يصبح سالباً"],a:0,e:"جاي-لوساك: الضغط يتناسب طردياً مع درجة الحرارة بالكلفن."},
+{q:"قيمة 1 atm بوحدة kPa تساوي تقريباً؟",o:["101.3","760","22.4","273"],a:0,e:"1 atm = 101.3 kPa = 760 mmHg."},
+{q:"ضُغط غاز إلى نصف حجمه عند ثبوت درجة الحرارة، فإن ضغطه؟",o:["يتضاعف","ينصف","لا يتغير","يصبح أربعة أمثاله"],a:0,e:"بويل: العلاقة عكسية، فنصف الحجم يعني ضعف الضغط."}];
+var SG1=[
+{t:"الضغط ودرجة الحرارة ووحداتهما",h:"<p>يُقاس ضغط الغاز بوحدات مختلفة وتُحوَّل بينها بالعلاقة: <span class='f'>1 atm = 101.3 kPa = 760 mmHg</span></p><p>وفي كل قوانين الغازات تُستعمل درجة الحرارة بالكلفن: <span class='f'>K = °C + 273</span></p><div class='ex'><b>مثال:</b> 27°C = 27 + 273 = <b>300 K</b>.</div>",c:{q:"كم كلفن تساوي 127°C؟",o:["400 K","127 K","146 K","−146 K"],a:0,e:"127 + 273 = 400 K."}},
+{t:"قانون بويل",h:"<p>عند ثبوت درجة الحرارة وكمية الغاز، يتناسب حجم الغاز تناسباً عكسياً مع ضغطه:</p><p><span class='f'>P₁V₁ = P₂V₂</span></p><div class='ex'><b>مثال:</b> غاز حجمه 2 لتر وضغطه 1 atm ضُغط إلى 0.5 لتر: 1 × 2 = P₂ × 0.5 ⇒ P₂ = <b>4 atm</b>.</div>",c:{q:"ضُغط غاز إلى ثلث حجمه عند ثبوت درجة الحرارة، فإن ضغطه؟",o:["يصبح ثلاثة أمثاله","يصبح ثلثه","لا يتغير","يصبح تسعة أمثاله"],a:0,e:"العلاقة عكسية، فثلث الحجم يعني ثلاثة أضعاف الضغط."}},
+{t:"قانون شارل",h:"<p>عند ثبوت الضغط وكمية الغاز، يتناسب الحجم طردياً مع درجة الحرارة <b>بالكلفن</b>:</p><p><span class='f'>V₁ / T₁ = V₂ / T₂</span></p><div class='ex'><b>مثال:</b> غاز حجمه 2 لتر عند 300 K سُخّن إلى 600 K: V₂ = 2 × 600 ÷ 300 = <b>4 لتر</b>.</div>",c:{q:"ما الخطأ الشائع عند حل مسائل شارل؟",o:["استعمال السلسيوس بدل الكلفن","استعمال اللتر للحجم","كتابة الضغط بالـ atm","القسمة على الحرارة"],a:0,e:"يجب التحويل إلى الكلفن أولاً."}},
+{t:"قانون جاي-لوساك",h:"<p>عند ثبوت الحجم وكمية الغاز، يتناسب الضغط طردياً مع درجة الحرارة بالكلفن:</p><p><span class='f'>P₁ / T₁ = P₂ / T₂</span></p><div class='ex'><b>مثال:</b> غاز ضغطه 2 atm عند 300 K سُخّن في وعاء مغلق إلى 450 K: P₂ = 2 × 450 ÷ 300 = <b>3 atm</b>.</div>",c:{q:"تسخين غاز في وعاء مغلق صلب يؤدي إلى؟",o:["زيادة ضغطه","نقص ضغطه","ثبات ضغطه","نقص كمية الغاز"],a:0,e:"الحجم ثابت، فيتناسب الضغط طردياً مع T."}},
+{t:"القانون الجامع للغازات",h:"<p>عندما يتغير أكثر من متغير نستعمل:</p><p><span class='f'>P₁V₁ / T₁ = P₂V₂ / T₂</span></p><p>وإذا ثبت أحد المتغيرات حُذف من القانون، فيتحول إلى بويل أو شارل أو جاي-لوساك.</p><div class='ex'><b>مثال:</b> إذا ثبت الضغط يصبح القانون V₁/T₁ = V₂/T₂، وهو قانون شارل.</div>",c:{q:"إذا بقي الحجم ثابتاً في القانون الجامع فإنه يتحول إلى قانون؟",o:["جاي-لوساك","بويل","شارل","أفوجادرو"],a:0,e:"بحذف V تبقى P₁/T₁ = P₂/T₂."}}];
+/* ===== الغازات: درس 7-2 ===== */
+function iV(){var n=R([1,2,3]),P=R([1,2]),V=parseFloat((n*0.0821*300/P).toFixed(2));
+ return num(n+" مول من غاز مثالي عند 300 K وضغط "+P+" atm. ما حجمه؟ (R = 0.0821)",V,"لتر","V = nRT ÷ P = "+n+" × 0.0821 × 300 ÷ "+P+" ≈ "+fm(V)+" لتر.")}
+function iT(){var n=R([.5,1,2,3]),V=parseFloat((n*22.4).toFixed(1));
+ return num("ما حجم "+n+" مول من أي غاز مثالي عند STP؟",V,"لتر","الحجم المولي عند STP = 22.4 لتر، إذن V = "+n+" × 22.4 = "+fm(V)+" لتر.")}
+function iS(){var V=R([11.2,22.4,44.8,67.2]),n=parseFloat((V/22.4).toFixed(2));
+ return num("كم مولاً في "+V+" لتر من غاز عند STP؟",n,"مول","n = V ÷ 22.4 = "+V+" ÷ 22.4 = "+fm(n)+" مول.")}
+function iM(){var g=R([["O₂",32],["N₂",28],["CO₂",44],["CH₄",16]]),V=R([11.2,22.4,44.8]),m=parseFloat((V/22.4*g[1]).toFixed(2));
+ return num("ما كتلة "+V+" لتر من غاز "+g[0]+" عند STP؟ (الكتلة المولية "+g[1]+" جم/مول)",m,"جم","n = "+V+" ÷ 22.4 = "+fm(V/22.4)+" مول، والكتلة = "+fm(V/22.4)+" × "+g[1]+" = "+fm(m)+" جم.")}
+var B72=[
+{q:"الحجم المولي لأي غاز مثالي عند STP يساوي؟",o:["22.4 لتر","24.6 لتر","1 لتر","273 لتر"],a:0,e:"عند 273 K وضغط 1 atm يشغل المول 22.4 لتراً."},
+{q:"درجة الحرارة في الظروف المعيارية STP؟",o:["273 K","273°C","0 K","298 K"],a:0,e:"STP هي 0°C = 273 K وضغط 1 atm."},
+{q:"أي صيغة صحيحة لإيجاد عدد المولات من قانون الغاز المثالي؟",o:["n = PV ÷ RT","n = RT ÷ PV","n = PV × RT","n = P ÷ VRT"],a:0,e:"من PV = nRT نقسم الطرفين على RT."},
+{q:"وحدة درجة الحرارة في PV = nRT هي؟",o:["الكلفن","السلسيوس","الفهرنهايت","الجول"],a:0,e:"R تتضمن الكلفن، فلا بد من استعماله."}];
+var SG2=[
+{t:"قانون الغاز المثالي",h:"<p>يربط القانون بين الضغط والحجم وعدد المولات ودرجة الحرارة:</p><p><span class='f'>PV = nRT</span></p><p>حيث R ثابت الغاز المثالي، وقيمته <span class='f'>0.0821 L·atm/(mol·K)</span> عند استعمال atm.</p><div class='ex'>الوحدات: P بالـ atm، و V باللتر، و n بالمول، و T بالكلفن.</div>",c:{q:"عند استعمال R = 0.0821 يجب أن تكون وحدة الضغط؟",o:["atm","kPa","mmHg","N"],a:0,e:"هذه القيمة مرتبطة بوحدات: لتر، atm، مول، كلفن."}},
+{t:"حساب الحجم",h:"<p>لإيجاد الحجم: <span class='f'>V = nRT / P</span></p><div class='ex'><b>مثال:</b> 2 مول عند 300 K وضغط 1 atm: V = 2 × 0.0821 × 300 ÷ 1 ≈ <b>49.3 لتر</b>.</div>",c:{q:"مول واحد من غاز مثالي عند 1 atm و 300 K يشغل تقريباً؟",o:["24.6 لتر","22.4 لتر","49.3 لتر","12.3 لتر"],a:0,e:"V = 1 × 0.0821 × 300 ÷ 1 ≈ 24.6 لتر."}},
+{t:"الظروف المعيارية STP",h:"<p>الظروف المعيارية: 273 K (0°C) وضغط 1 atm. وعندها يشغل المول الواحد من أي غاز مثالي <b>22.4 لتر</b>.</p><div class='ex'><b>مثال:</b> 44.8 لتر عند STP = 44.8 ÷ 22.4 = <b>2 مول</b>.</div>",c:{q:"كم مولاً في 11.2 لتر من غاز عند STP؟",o:["0.5","1","2","11.2"],a:0,e:"11.2 ÷ 22.4 = 0.5 مول."}},
+{t:"ربط الكتلة بالحجم",h:"<p>نحسب المولات من الكتلة: <span class='f'>n = m ÷ M</span>، ثم نستعمل 22.4 لتر/مول عند STP، أو PV = nRT في الظروف الأخرى.</p><div class='ex'><b>مثال:</b> 22 جم من CO₂ (44 جم/مول) = 0.5 مول، فتشغل عند STP: 0.5 × 22.4 = <b>11.2 لتر</b>.</div>",c:{q:"كم لتراً يشغل 32 جم من O₂ (32 جم/مول) عند STP؟",o:["22.4","32","11.2","44.8"],a:0,e:"32 ÷ 32 = 1 مول، وحجمه 22.4 لتر."}}];
+CONTENT["g2a-7-1"]={sec:SG1,gen:FAC([gB,gC,gG,gM,0,0],B71)};
+CONTENT["g2a-7-2"]={sec:SG2,gen:FAC([iV,iT,iS,iM,0],B72)};
+/* ===== الحسابات الكيميائية: 5-3 إلى 5-6 ===== */
+function mc(q,c,w,e){var o=sh([c].concat(w));return{q:q,o:o,a:o.indexOf(c),e:e}}
+var RX=[
+ {e:"2H₂ + O₂ → 2H₂O",s:[["H₂",2,2],["O₂",1,32],["H₂O",2,18]]},
+ {e:"N₂ + 3H₂ → 2NH₃",s:[["N₂",1,28],["H₂",3,2],["NH₃",2,17]]},
+ {e:"2Mg + O₂ → 2MgO",s:[["Mg",2,24],["O₂",1,32],["MgO",2,40]]},
+ {e:"CaCO₃ → CaO + CO₂",s:[["CaCO₃",1,100],["CaO",1,56],["CO₂",1,44]]}];
+function pr2(){var r=R(RX),ix=sh([0,1,2]);return{r:r,A:r.s[ix[0]],B:r.s[ix[1]]}}
+function s3(){var p,n,x;do{p=pr2();n=R([1,2,3,4,6]);x=n*p.B[1]/p.A[1]}while(x*2%1!==0);
+ return num("وفق المعادلة الموزونة: "+p.r.e+" ما عدد مولات "+p.B[0]+" المقابلة لـ "+n+" مول من "+p.A[0]+"؟",x,"مول","النسبة المولية "+p.B[0]+" : "+p.A[0]+" = "+p.B[1]+" : "+p.A[1]+"، إذن "+n+" × "+p.B[1]+" ÷ "+p.A[1]+" = "+fm(x)+" مول.")}
+function s4(){var p,nA,mA,x;do{p=pr2();nA=R([1,2,3,.5]);mA=nA*p.A[2];x=nA*p.B[1]/p.A[1]*p.B[2]}while(x*4%1!==0||x>200);
+ return num("وفق المعادلة: "+p.r.e+" (الكتل المولية: "+p.A[0]+" = "+p.A[2]+"، "+p.B[0]+" = "+p.B[2]+" جم/مول). ما كتلة "+p.B[0]+" المقابلة لـ "+fm(mA)+" جم من "+p.A[0]+"؟",x,"جم","n("+p.A[0]+") = "+fm(mA)+" ÷ "+p.A[2]+" = "+fm(nA)+" مول، ثم n("+p.B[0]+") = "+fm(nA)+" × "+p.B[1]+" ÷ "+p.A[1]+" = "+fm(nA*p.B[1]/p.A[1])+" مول، والكتلة = "+fm(nA*p.B[1]/p.A[1])+" × "+p.B[2]+" = "+fm(x)+" جم.",1e9,mA*p.B[1]/p.A[1])}
+var LP=[[1,1],[2,2],[4,1],[6,2],[1,3],[4,3]];
+function lm1(){var p=R(LP),a=p[0],b=p[1],h=a/2<b;
+ return mc("تفاعل "+a+" مول من H₂ مع "+b+" مول من O₂ وفق: 2H₂ + O₂ → 2H₂O. ما المادة المحددة للتفاعل؟",h?"H₂":"O₂",[h?"O₂":"H₂","H₂O","لا توجد مادة محددة"],"H₂ يكفي لتكوين "+fm(a)+" مول ماء، و O₂ يكفي لتكوين "+fm(2*b)+" مول ماء. المادة التي تعطي ناتجاً أقل هي المحددة، وهي "+(h?"H₂":"O₂")+".")}
+function lm2(){var p=R(LP),a=p[0],b=p[1],x=2*Math.min(a/2,b);
+ return num("تفاعل "+a+" مول من H₂ مع "+b+" مول من O₂ وفق: 2H₂ + O₂ → 2H₂O. كم مولاً من H₂O يتكوّن؟",x,"مول","H₂ يعطي "+fm(a)+" مول ماء، و O₂ يعطي "+fm(2*b)+" مول. الناتج يتحدد بالأقل: "+fm(x)+" مول.",1e9,a)}
+function y1(){var T=R([20,40,50,80,100]),pc=R([50,60,75,80,90]),a=T*pc/100;
+ return num("المردود النظري لتفاعل "+T+" جم، وحصل الطالب في المختبر على "+fm(a)+" جم. ما نسبة المردود المئوية؟",pc,"%","النسبة = الفعلي ÷ النظري × 100 = "+fm(a)+" ÷ "+T+" × 100 = "+pc+"%.",100)}
+function y2(){var T=R([20,40,50,80,100]),pc=R([50,60,75,80,90]),a=T*pc/100;
+ return num("المردود النظري "+T+" جم ونسبة المردود المئوية "+pc+"%. ما كتلة الناتج الفعلية؟",a,"جم","الفعلي = النظري × النسبة ÷ 100 = "+T+" × "+pc+" ÷ 100 = "+fm(a)+" جم.",1e9,T)}
+var B53=[
+{q:"المعاملات في المعادلة الموزونة تمثل نسب؟",o:["المولات","الكتل","درجات الحرارة","الكثافات"],a:0,e:"المعاملات تعطي النسب المولية بين المواد."},
+{q:"أي قانون يفرض وزن المعادلة قبل الحساب؟",o:["حفظ الكتلة","بويل","شارل","هس"],a:0,e:"عدد الذرات والكتلة يجب أن يتساويا في طرفي المعادلة."},
+{q:"النسبة المولية بين H₂ و NH₃ في N₂ + 3H₂ → 2NH₃؟",o:["3 : 2","2 : 3","1 : 3","1 : 2"],a:0,e:"من المعاملات: 3 مول H₂ مقابل 2 مول NH₃."}];
+var B54=[
+{q:"ما الخطوة الأولى عند حل مسألة كتلة-كتلة؟",o:["التأكد من وزن المعادلة","ضرب الكتلة في المعامل","قسمة الكتلة على الحجم","كتابة الناتج"],a:0,e:"النسب المولية لا تصح إلا من معادلة موزونة."},
+{q:"لتحويل الكتلة إلى مولات نقسم على؟",o:["الكتلة المولية","المعامل","الحجم","الكثافة"],a:0,e:"n = m ÷ M."},
+{q:"بعد إيجاد مولات المطلوب نحصل على كتلته بالضرب في؟",o:["الكتلة المولية","معامل المتفاعل","درجة الحرارة","عدد أفوجادرو دائماً"],a:0,e:"m = n × M."}];
+var B55=[
+{q:"المادة المحددة للتفاعل هي التي؟",o:["تُستهلك أولاً","تتبقى بعد التفاعل","لها أكبر كتلة","لها أكبر معامل"],a:0,e:"إذا انتهت توقف التفاعل."},
+{q:"المادة الفائضة هي التي؟",o:["يتبقى منها بعد انتهاء التفاعل","تنفد أولاً","تحدد كمية الناتج","لا تدخل التفاعل"],a:0,e:"الفائضة أكثر مما يلزم، فيبقى جزء منها."},
+{q:"كمية الناتج تتحدد بكمية؟",o:["المادة المحددة","المادة الفائضة","الماء دائماً","الأكسجين دائماً"],a:0,e:"الناتج لا يزيد عمّا تسمح به المادة المحددة."}];
+var B56=[
+{q:"المردود النظري هو؟",o:["الكمية المتوقعة حسابياً","الكمية الفعلية في المختبر","كتلة المتفاعلات","كتلة الفائض"],a:0,e:"يُحسب من المعادلة الموزونة."},
+{q:"من أسباب كون المردود الفعلي أقل من النظري؟",o:["فقد جزء من الناتج وتفاعلات جانبية","وزن المعادلة","زيادة الناتج","ثبات الحرارة"],a:0,e:"قد يضيع جزء من الناتج أو تحدث تفاعلات أخرى."},
+{q:"نسبة المردود المئوية في الغالب؟",o:["أقل من 100%","أكبر من 100%","200%","سالبة"],a:0,e:"الفعلي عادة أقل من النظري."}];
+var S53=[
+{t:"ما هي الحسابات الكيميائية؟",h:"<p>هي الحسابات التي تربط بين كميات المواد المتفاعلة والناتجة في التفاعل. وأساسها <b>المعادلة الموزونة</b>، لأن معاملاتها تمثل نسب المولات.</p>",c:{q:"المعاملات في المعادلة الموزونة تمثل نسب؟",o:["مولات المواد","كتل المواد","درجات حرارتها","كثافاتها"],a:0,e:"المعاملات هي النسب المولية."}},
+{t:"النسبة المولية",h:"<p>نشتقها من المعاملات. في <span class='f'>N₂ + 3H₂ → 2NH₃</span> تكون النسبة بين H₂ و NH₃ هي 3 : 2.</p><div class='ex'><b>مثال:</b> 6 مول H₂ تعطي 6 × 2 ÷ 3 = <b>4 مول NH₃</b>.</div>",c:{q:"في 2H₂ + O₂ → 2H₂O كم مول H₂O ينتج من 1 مول O₂؟",o:["2","1","0.5","4"],a:0,e:"النسبة O₂ : H₂O = 1 : 2."}},
+{t:"قانون حفظ الكتلة",h:"<p>الكتلة الكلية للمتفاعلات تساوي الكتلة الكلية للنواتج، ولذلك لا بد أن تتساوى أعداد الذرات في طرفي المعادلة.</p>",c:{q:"كتلة المتفاعلات تساوي؟",o:["كتلة النواتج","ضعف كتلة النواتج","نصف كتلة النواتج","عدد المولات"],a:0,e:"هذا هو قانون حفظ الكتلة."}}];
+var S54=[
+{t:"خطوات الحل",h:"<p>1) تأكد من وزن المعادلة.<br>2) حوّل كتلة المعلوم إلى مولات: <span class='f'>n = m ÷ M</span><br>3) استعمل النسبة المولية لإيجاد مولات المطلوب.<br>4) حوّلها إلى كتلة: <span class='f'>m = n × M</span></p>",c:{q:"أي ترتيب صحيح لحل مسألة كتلة-كتلة؟",o:["كتلة ← مولات ← نسبة مولية ← مولات ← كتلة","كتلة ← نسبة مولية ← كتلة","مولات ← كتلة ← مولات","حجم ← كتلة ← نسبة"],a:0,e:"المولات هي الجسر بين المعلوم والمطلوب."}},
+{t:"مثال محلول",h:"<p>في <span class='f'>2H₂ + O₂ → 2H₂O</span>: كم جراماً من H₂O تنتج من 4 جم H₂؟</p><div class='ex'>n(H₂) = 4 ÷ 2 = 2 مول ⇒ n(H₂O) = 2 × 2 ÷ 2 = 2 مول ⇒ الكتلة = 2 × 18 = <b>36 جم</b>.</div>",c:{q:"كم مولاً في 4 جم من H₂ (الكتلة المولية 2)؟",o:["2","4","8","0.5"],a:0,e:"4 ÷ 2 = 2 مول."}},
+{t:"أخطاء شائعة",h:"<p>• نسيان وزن المعادلة.<br>• استعمال الكتلة مباشرة في النسبة بدل المولات.<br>• استعمال معامل المطلوب مكان معامل المعلوم في النسبة.</p>",c:{q:"لماذا لا نطبّق النسبة المولية على الكتل مباشرة؟",o:["لأن المعاملات تمثل نسب مولات لا كتل","لأن الكتلة لا تُقاس","لأن النسبة دائماً 1:1","لأن الكتل متساوية"],a:0,e:"يجب التحويل إلى مولات أولاً."}}];
+var S55=[
+{t:"المادة المحددة والفائضة",h:"<p><b>المادة المحددة</b> هي التي تُستهلك أولاً فيتوقف التفاعل، وهي التي تحدد كمية الناتج. أما <b>المادة الفائضة</b> فيتبقى منها جزء بعد التفاعل.</p>",c:{q:"ما الذي يحدد كمية الناتج؟",o:["المادة المحددة","المادة الفائضة","الماء","الحرارة فقط"],a:0,e:"الناتج لا يزيد عمّا تسمح به المحددة."}},
+{t:"كيف نعرف المحددة؟",h:"<p>احسب كمية الناتج التي تعطيها كل مادة متفاعلة على حدة. المادة التي تعطي ناتجاً <b>أقل</b> هي المحددة.</p>",c:{q:"المادة المحددة هي التي تعطي؟",o:["أقل كمية ناتج","أكبر كمية ناتج","كتلة أكبر","معاملاً أكبر"],a:0,e:"الأقل ناتجاً تنتهي أولاً."}},
+{t:"مثال محلول",h:"<p>تفاعل 4 مول H₂ مع 1 مول O₂ وفق <span class='f'>2H₂ + O₂ → 2H₂O</span>:</p><div class='ex'>H₂ يعطي 4 مول ماء، و O₂ يعطي 2 مول ماء. الأقل 2 مول، فالمحددة <b>O₂</b> والناتج <b>2 مول</b>.</div>",c:{q:"في المثال السابق، كم مول ماء ينتج؟",o:["2","4","1","6"],a:0,e:"الناتج يتحدد بالأقل وهو 2 مول."}}];
+var S56=[
+{t:"المردود النظري والفعلي",h:"<p><b>المردود النظري</b> هو أقصى كمية ناتج تُحسب من المعادلة. و<b>المردود الفعلي</b> هو ما نحصل عليه فعلاً في المختبر، وهو غالباً أقل بسبب فقد جزء من الناتج أو تفاعلات جانبية.</p>",c:{q:"المردود الفعلي مقارنة بالنظري غالباً؟",o:["أقل","أكبر","مساوٍ دائماً","سالب"],a:0,e:"بسبب الفقد والتفاعلات الجانبية."}},
+{t:"نسبة المردود المئوية",h:"<p><span class='f'>% المردود = المردود الفعلي ÷ المردود النظري × 100</span></p>",c:{q:"ما الذي نقسم عليه لحساب نسبة المردود؟",o:["المردود النظري","المردود الفعلي","كتلة المتفاعلات","الكتلة المولية"],a:0,e:"الفعلي ÷ النظري."}},
+{t:"مثال محلول",h:"<div class='ex'>المردود النظري 40 جم والفعلي 30 جم ⇒ 30 ÷ 40 × 100 = <b>75%</b>.</div><p>وإذا عُرفت النسبة والنظري فالفعلي = النظري × النسبة ÷ 100.</p>",c:{q:"مردود نظري 50 جم ونسبة 80%، فالفعلي؟",o:["40 جم","62.5 جم","30 جم","80 جم"],a:0,e:"50 × 80 ÷ 100 = 40 جم."}}];
+CONTENT["g2a-5-3"]={sec:S53,gen:FAC([s3,s3,0,0],B53)};
+CONTENT["g2a-5-4"]={sec:S54,gen:FAC([s4,s4,s3,0],B54)};
+CONTENT["g2a-5-5"]={sec:S55,gen:FAC([lm1,lm2,s3,0],B55)};
+CONTENT["g2a-5-6"]={sec:S56,gen:FAC([y1,y2,s4,0],B56)};
+/* ===== كيمياء 2-1: الفصلان 1 و2 ===== */
+var SUP='⁰¹²³⁴⁵⁶⁷⁸⁹',EL={7:'N',8:'O',9:'F',11:'Na',12:'Mg',13:'Al',14:'Si',15:'P',16:'S',17:'Cl',19:'K',20:'Ca'},VAL={7:5,8:6,9:7,11:1,12:2,13:3,14:4,15:5,16:6,17:7,19:1,20:2};
+function cfg(Z){var o=[['1s',2],['2s',2],['2p',6],['3s',2],['3p',6],['4s',2],['3d',10],['4p',6]],r=[],z=Z;for(var i=0;i<o.length&&z>0;i++){var n=Math.min(o[i][1],z);z-=n;r.push(o[i][0]+String(n).split('').map(function(d){return SUP[+d]}).join(''))}return r.join(' ')}
+function cf(){var Z=R([7,8,9,11,12,13,15,16,17,19,20]);return mc('ما التوزيع الإلكتروني لذرة '+EL[Z]+' (العدد الذري '+Z+')؟',cfg(Z),[cfg(Z+1),cfg(Z-1),cfg(Z+2)],'نملأ الأفلاك بالترتيب 1s 2s 2p 3s 3p 4s: '+cfg(Z)+'.')}
+function vl(){var Z=R(Object.keys(VAL).map(Number)),v=VAL[Z],w=sh([1,2,3,4,5,6,7,8].filter(function(x){return x!==v})).slice(0,3).map(String);return mc('كم عدد إلكترونات التكافؤ في ذرة '+EL[Z]+' (العدد الذري '+Z+')؟',String(v),w,'التوزيع: '+cfg(Z)+'، وإلكترونات المستوى الخارجي = '+v+'.')}
+function wl(){var a=R([3,5,6,7.5,10,12]),l=3000/a;return num('موجة ضوئية ترددها '+a+'×10¹⁴ هرتز. ما طولها الموجي؟ (c = 3.00×10⁸ م/ث)',l,'نانومتر','λ = c ÷ ν = 3×10⁸ ÷ ('+a+'×10¹⁴) = '+fm(l)+' نانومتر.',1e9,a)}
+function fr(){var l=R([250,300,400,500,600,1000]),a=3000/l;return num('موجة طولها الموجي '+l+' نانومتر. ما ترددها؟ (c = 3.00×10⁸ م/ث)',a,'×10¹⁴ هرتز','ν = c ÷ λ = 3×10⁸ ÷ ('+l+'×10⁻⁹) = '+fm(a)+'×10¹⁴ هرتز.',1e9,l)}
+var SUBL=[['s',1,2],['p',3,6],['d',5,10],['f',7,14]];
+function orbQ(){var t=R(SUBL),k=R([1,2]),c=t[k],all=SUBL.map(function(x){return x[k]});return mc((k===1?'كم فلكاً في المستوى الفرعي ':'ما أقصى عدد من الإلكترونات في المستوى الفرعي ')+t[0]+'؟',String(c),all.filter(function(x){return x!==c}).map(String),k===1?'المستوى الفرعي '+t[0]+' فيه '+c+' فلك (s:1، p:3، d:5، f:7).':'كل فلك يتسع لإلكترونين، فالمستوى '+t[0]+' يتسع '+c+' إلكتروناً.')}
+function zn(){var p=R([['2s¹','s'],['3s²','s'],['3p⁴','p'],['2p³','p'],['3d⁵','d'],['4d²','d'],['4f³','f'],['5f¹','f']]);return mc('عنصر ينتهي توزيعه الإلكتروني بـ '+p[0]+'، فهو يقع في المنطقة؟',p[1],['s','p','d','f'].filter(function(x){return x!==p[1]}),'الفلك الأخير الذي يُملأ يحدد المنطقة، وهنا: '+p[1]+'.')}
+var GN={1:'الفلزات القلوية',2:'الفلزات القلوية الأرضية',17:'الهالوجينات',18:'الغازات النبيلة'};
+function grp(){var g=R([1,2,17,18]),ks=Object.keys(GN);return mc('تسمى عناصر المجموعة '+g+'؟',GN[g],ks.filter(function(k){return +k!==g}).map(function(k){return GN[k]}),'عناصر المجموعة '+g+' هي '+GN[g]+'.')}
+function trend(txt,pairs,exp){return function(){var p=R(pairs),sw=Math.random()<.5,a=sw?p[1]:p[0],b=sw?p[0]:p[1];return mc('أي العنصرين '+txt+': '+a+' أم '+b+'؟',p[2],[p[2]===a?b:a,'متساويان','لا يمكن المقارنة'],exp(p))}}
+var rad=trend('له نصف القطر الأكبر',[['Na','Cl','Na'],['Mg','S','Mg'],['Li','K','K'],['Na','K','K'],['F','Cl','Cl'],['Cl','Br','Br'],['Al','Cl','Al']],function(p){return 'نصف القطر يقل عبر الدورة ويزداد أسفل المجموعة، فالأكبر هو '+p[2]+'.'});
+var ion=trend('له طاقة تأين أعلى',[['Na','Cl','Cl'],['Mg','Cl','Cl'],['Li','K','Li'],['K','Na','Na'],['F','Cl','F'],['Na','Si','Si']],function(p){return 'طاقة التأين تزداد عبر الدورة وتقل أسفل المجموعة، فالأعلى هو '+p[2]+'.'});
+var en=trend('أعلى كهروسالبية',[['F','Cl','F'],['Cl','Br','Cl'],['Na','Cl','Cl'],['O','S','O'],['Mg','Cl','Cl']],function(p){return 'الكهروسالبية تزداد عبر الدورة وتقل أسفل المجموعة، فالأعلى هو '+p[2]+'.'});
+var B11=[
+{q:"وحدة التردد هي؟",o:["هرتز","متر","جول","ثانية"],a:0,e:"التردد عدد الموجات في الثانية ويُقاس بالهرتز."},
+{q:"أي الإشعاعات التالية أعلى طاقة؟",o:["الأشعة السينية","موجات الراديو","الأشعة تحت الحمراء","الضوء المرئي"],a:0,e:"أقصر طول موجي يعني أعلى تردد وأعلى طاقة."},
+{q:"العلاقة بين طاقة الفوتون وتردده؟",o:["طردية: E = hν","عكسية","لا علاقة بينهما","تربيعية عكسية"],a:0,e:"E = hν، فكلما زاد التردد زادت الطاقة."},
+{q:"ما الكمّ؟",o:["أقل كمية من الطاقة تكسبها الذرة أو تفقدها","الكتلة الذرية","عدد الإلكترونات","سرعة الضوء"],a:0,e:"تُمتص الطاقة وتُصدر على شكل كمّات."},
+{q:"سرعة الضوء في الفراغ تقريباً؟",o:["3.00×10⁸ م/ث","3.00×10⁶ م/ث","3.00×10¹⁰ م/ث","340 م/ث"],a:0,e:"c = 3.00×10⁸ م/ث."}];
+var B12=[
+{q:"الفلك هو؟",o:["منطقة يُحتمل وجود الإلكترون فيها","مسار دائري ثابت","نواة الذرة","نوع من الفوتونات"],a:0,e:"في النموذج الكمي يُوصف الإلكترون باحتمال وجوده."},
+{q:"أي عدد كمي يحدد المستوى الرئيس؟",o:["n","l","m_l","m_s"],a:0,e:"العدد الكمي الرئيس n."},
+{q:"قيمتا اللف المغزلي (m_s) هما؟",o:["+½ و −½","0 و 1","1 و 2","+1 و −1"],a:0,e:"للإلكترون اتجاهان للف."},
+{q:"ما سبب ظهور خطوط طيف الهيدروجين؟",o:["انتقال الإلكترونات بين مستويات الطاقة","اصطدام النوى","انشطار النواة","تغير الكتلة"],a:0,e:"كل خط ينتج عن انتقال بين مستويين محددين."},
+{q:"من اقترح أن للإلكترون سلوكاً موجياً؟",o:["دي برولي","دالتون","رذرفورد","مندليف"],a:0,e:"هذه فرضية دي برولي."}];
+var B13=[
+{q:"ينص مبدأ باولي على أن الفلك الواحد يتسع لـ؟",o:["إلكترونين بلفّين متعاكسين","إلكترون واحد","أربعة إلكترونات","ثمانية إلكترونات"],a:0,e:"لا يتشابه إلكترونان في الأعداد الكمية الأربعة."},
+{q:"تنص قاعدة هوند على أن الأفلاك المتساوية في الطاقة؟",o:["تُملأ فرادى أولاً","تُملأ مزدوجة أولاً","لا تُملأ","تُملأ عشوائياً"],a:0,e:"تتوزع الإلكترونات فرادى بنفس اللف ثم تزدوج."},
+{q:"أي الأفلاك يُملأ أولاً؟",o:["4s قبل 3d","3d قبل 4s","3p قبل 2p","2p قبل 2s"],a:0,e:"4s أقل طاقة من 3d فيُملأ قبله."},
+{q:"التمثيل المختصر لذرة Na (العدد الذري 11)؟",o:["[Ne] 3s¹","[He] 3s¹","[Ne] 2s¹","[Ar] 3s¹"],a:0,e:"Ne غاز نبيل عدده الذري 10، ثم يُضاف 3s¹."}];
+var B21=[
+{q:"من رتّب العناصر حسب كتلها الذرية في جدول تنبأ به بعناصر لم تُكتشف؟",o:["مندليف","موزلي","بور","دالتون"],a:0,e:"هذا جدول مندليف."},
+{q:"من رتّب العناصر حسب أعدادها الذرية؟",o:["موزلي","مندليف","رذرفورد","لافوازييه"],a:0,e:"اكتشف موزلي العدد الذري فصار أساس الترتيب."},
+{q:"عدد المجموعات في الجدول الدوري الحديث؟",o:["18","8","7","32"],a:0,e:"18 عموداً رأسياً."},
+{q:"عدد الدورات في الجدول الدوري الحديث؟",o:["7","18","8","10"],a:0,e:"7 صفوف أفقية."},
+{q:"القانون الدوري ينص على أن خواص العناصر؟",o:["دالة دورية في أعدادها الذرية","دالة في كتلها الذرية","ثابتة لا تتغير","عشوائية"],a:0,e:"تتكرر الخواص دورياً بزيادة العدد الذري."}];
+var B22=[
+{q:"أي العناصر التالية شبه فلز؟",o:["Si","Na","Cl","Mg"],a:0,e:"السيليكون من أشباه الفلزات."},
+{q:"لماذا تُعد الغازات النبيلة مستقرة؟",o:["مستواها الخارجي ممتلئ","نواتها كبيرة","كثافتها عالية","هي فلزات"],a:0,e:"امتلاء المستوى الخارجي يمنحها الاستقرار."},
+{q:"الفلزات القلوية تقع في المجموعة؟",o:["1","2","17","18"],a:0,e:"المجموعة 1."},
+{q:"من خواص اللافلزات غالباً؟",o:["رديئة التوصيل للكهرباء","لامعة دائماً","قابلة للطرق","توصل الكهرباء جيداً"],a:0,e:"اللافلزات رديئة التوصيل غالباً."},
+{q:"أملاح العناصر الانتقالية غالباً؟",o:["ملونة","عديمة اللون دائماً","غازية","متفجرة"],a:0,e:"من خصائصها أن أملاحها غالباً ملونة."}];
+var B23=[
+{q:"طاقة التأين هي الطاقة اللازمة لـ؟",o:["نزع إلكترون من ذرة غازية","إضافة إلكترون إلى الذرة","تكوين رابطة","صهر الفلز"],a:0,e:"تعريف طاقة التأين."},
+{q:"ما سبب نقص نصف القطر عبر الدورة؟",o:["زيادة شحنة النواة الفعالة","زيادة المستويات","نقص البروتونات","زيادة النيوترونات"],a:0,e:"تزداد شحنة النواة فتجذب الإلكترونات أكثر."},
+{q:"ما سبب زيادة نصف القطر أسفل المجموعة؟",o:["زيادة عدد المستويات","زيادة الكهروسالبية","نقص الكتلة","نقص الإلكترونات"],a:0,e:"تُضاف مستويات طاقة جديدة."},
+{q:"كهروسالبية العناصر أسفل المجموعة؟",o:["تقل","تزداد","ثابتة","تتضاعف"],a:0,e:"يزداد البعد عن النواة فيضعف الجذب."}];
+var S211=[
+{t:"الضوء موجة",h:"<p>الضوء إشعاع كهرومغناطيسي له طول موجي <b>λ</b> وتردد <b>ν</b>، وسرعته في الفراغ c = 3.00×10⁸ م/ث. والعلاقة بينها: <span class='f'>c = λν</span></p><div class='ex'><b>مثال:</b> تردد 6×10¹⁴ هرتز ⇒ λ = 3×10⁸ ÷ 6×10¹⁴ = 5×10⁻⁷ م = <b>500 نانومتر</b>.</div>",c:{q:"إذا زاد تردد موجة فإن طولها الموجي؟",o:["يقل","يزداد","لا يتغير","يصبح صفراً"],a:0,e:"الحاصل c ثابت، فالعلاقة عكسية."}},
+{t:"الكمّ وطاقة الفوتون",h:"<p>الكمّ أقل كمية طاقة يمكن أن تكسبها الذرة أو تفقدها. وطاقة الفوتون: <span class='f'>E = hν</span> حيث h ثابت بلانك 6.626×10⁻³⁴ جول·ثانية. فالطاقة تتناسب طردياً مع التردد.</p>",c:{q:"أي إشعاع له أعلى طاقة للفوتون؟",o:["ذو التردد الأعلى","ذو الطول الموجي الأكبر","ذو التردد الأقل","كلها متساوية"],a:0,e:"E = hν، فالتردد الأعلى يعني طاقة أعلى."}},
+{t:"الظاهرة الكهروضوئية وطيف الانبعاث",h:"<p>الظاهرة الكهروضوئية: انبعاث إلكترونات من سطح فلز عند سقوط ضوء عليه بتردد لا يقل عن حد معين، وتفسَّر بأن الضوء يتكوّن من فوتونات.</p><p>أما طيف الانبعاث الذري فهو خطوط ملونة محددة، وهو <b>خاص بكل عنصر</b>.</p>",c:{q:"طيف الانبعاث الخطي لعنصر ما؟",o:["خاص بهذا العنصر","واحد لجميع العناصر","مستمر دائماً","غير موجود"],a:0,e:"كل عنصر له خطوط طيف مميزة."}}];
+var S212=[
+{t:"نموذج بور",h:"<p>يدور الإلكترون في مستويات طاقة محددة. وعندما ينتقل من مستوى أعلى إلى أقل يُصدر فوتوناً طاقته تساوي فرق الطاقة بين المستويين.</p>",c:{q:"عند انتقال إلكترون من مستوى أعلى إلى أقل يحدث؟",o:["انبعاث فوتون","امتصاص فوتون","لا يتغير شيء","اختفاء الإلكترون"],a:0,e:"تنطلق الطاقة الزائدة على شكل فوتون."}},
+{t:"النموذج الكمي للذرة",h:"<p>للإلكترون سلوك موجي (فرضية دي برولي)، ولا يمكن تحديد موضعه وسرعته معاً بدقة (<b>مبدأ عدم اليقين لهايزنبرج</b>). لذلك نصف الإلكترون باحتمال وجوده في منطقة تسمى <b>الفلك</b>.</p>",c:{q:"مبدأ عدم اليقين لهايزنبرج يخص؟",o:["تحديد موضع الإلكترون وسرعته معاً","عدد النيوترونات","كتلة الذرة","لون الضوء"],a:0,e:"لا يمكن تحديد الموضع والسرعة معاً بدقة تامة."}},
+{t:"الأعداد الكمية",h:"<p>• <b>n</b>: المستوى الرئيس.<br>• <b>l</b>: المستوى الفرعي وشكل الفلك (s, p, d, f).<br>• <b>m_l</b>: اتجاه الفلك.<br>• <b>m_s</b>: اللف المغزلي (+½ أو −½).</p><p>عدد الأفلاك: s = 1، p = 3، d = 5، f = 7.</p>",c:{q:"كم فلكاً في المستوى الفرعي p؟",o:["3","1","5","7"],a:0,e:"المستوى p فيه 3 أفلاك."}}];
+var S213=[
+{t:"قواعد التوزيع الإلكتروني",h:"<p>• <b>مبدأ البناء التصاعدي:</b> تُملأ الأفلاك الأقل طاقة أولاً.<br>• <b>مبدأ باولي:</b> الفلك يتسع لإلكترونين بلفّين متعاكسين.<br>• <b>قاعدة هوند:</b> الأفلاك المتساوية في الطاقة تُملأ فرادى أولاً.</p>",c:{q:"كم إلكتروناً يتسع له الفلك الواحد؟",o:["2","1","6","10"],a:0,e:"إلكترونان بلفّين متعاكسين."}},
+{t:"ترتيب ملء الأفلاك",h:"<p>الترتيب: <span class='f'>1s 2s 2p 3s 3p 4s 3d 4p 5s</span></p><p>السعة: s = 2، p = 6، d = 10، f = 14.</p><div class='ex'><b>مثال:</b> Na (Z = 11): <b>1s² 2s² 2p⁶ 3s¹</b>.</div>",c:{q:"أي المستويات يُملأ بعد 3p؟",o:["4s","3d","4p","5s"],a:0,e:"4s أقل طاقة من 3d فيأتي بعد 3p."}},
+{t:"إلكترونات التكافؤ والتمثيل المختصر",h:"<p>إلكترونات التكافؤ هي إلكترونات المستوى الخارجي. ويمكن اختصار التوزيع بالرمز النقطي للغاز النبيل السابق.</p><div class='ex'><b>مثال:</b> Na: [Ne] 3s¹، وله إلكترون تكافؤ واحد.</div>",c:{q:"كم إلكترون تكافؤ في ذرة Cl (العدد الذري 17)؟",o:["7","17","5","1"],a:0,e:"التوزيع 1s² 2s² 2p⁶ 3s² 3p⁵، فالمستوى الخارجي فيه 7."}}];
+var S221=[
+{t:"من مندليف إلى موزلي",h:"<p>رتّب مندليف العناصر حسب كتلها الذرية وتنبأ بعناصر لم تُكتشف. ثم رتّبها موزلي حسب <b>العدد الذري</b>، فصار القانون الدوري: خواص العناصر دالة دورية في أعدادها الذرية.</p>",c:{q:"الجدول الدوري الحديث مرتب حسب؟",o:["العدد الذري","الكتلة الذرية","الكثافة","اللون"],a:0,e:"ترتيب موزلي بالعدد الذري."}},
+{t:"الدورات والمجموعات",h:"<p>الدورات صفوف أفقية (7 دورات)، والمجموعات أعمدة رأسية (18 مجموعة). وتتشابه عناصر المجموعة الواحدة في خواصها لتساوي إلكترونات تكافؤها.</p>",c:{q:"تتشابه عناصر المجموعة الواحدة لأن لها؟",o:["نفس عدد إلكترونات التكافؤ","نفس العدد الذري","نفس الكتلة","نفس عدد الدورات"],a:0,e:"عدد إلكترونات التكافؤ يحدد السلوك الكيميائي."}},
+{t:"مناطق الجدول: s و p و d و f",h:"<p>يُقسم الجدول إلى مناطق حسب الفلك الأخير الذي يُملأ: <b>s</b> و<b>p</b> (العناصر الممثلة)، و<b>d</b> (العناصر الانتقالية)، و<b>f</b> (الانتقالية الداخلية).</p>",c:{q:"عناصر المجموعتين 1 و2 تقع في المنطقة؟",o:["s","p","d","f"],a:0,e:"آخر فلك يُملأ فيها هو s."}}];
+var S222=[
+{t:"الفلزات واللافلزات وأشباه الفلزات",h:"<p><b>الفلزات:</b> موصلة جيدة للحرارة والكهرباء، لامعة، قابلة للطرق والسحب، وتفقد الإلكترونات.<br><b>اللافلزات:</b> رديئة التوصيل غالباً وتكتسب الإلكترونات.<br><b>أشباه الفلزات</b> خواصها بين النوعين، مثل السيليكون.</p>",c:{q:"أي الخواص الآتية خاصة بالفلزات؟",o:["موصلة جيدة للكهرباء","رديئة التوصيل","تكتسب الإلكترونات غالباً","هشة دائماً"],a:0,e:"الفلزات موصلة جيدة وقابلة للطرق."}},
+{t:"مجموعات مشهورة",h:"<p>• المجموعة 1: الفلزات القلوية.<br>• المجموعة 2: الفلزات القلوية الأرضية.<br>• المجموعة 17: الهالوجينات.<br>• المجموعة 18: الغازات النبيلة، وهي مستقرة لامتلاء مستواها الخارجي.</p>",c:{q:"الهالوجينات هي عناصر المجموعة؟",o:["17","1","2","18"],a:0,e:"المجموعة 17."}},
+{t:"العناصر الانتقالية",h:"<p>عناصر المجموعات 3 إلى 12 (المنطقة d)، وكلها فلزات. تكوّن أيونات بشحنات متعددة، وأملاحها غالباً ملونة.</p>",c:{q:"العناصر الانتقالية تقع في المنطقة؟",o:["d","s","p","f"],a:0,e:"هي عناصر المنطقة d."}}];
+var S223=[
+{t:"نصف القطر",h:"<p>يقل نصف القطر <b>عبر الدورة</b> (من اليسار لليمين) لزيادة شحنة النواة، ويزداد <b>أسفل المجموعة</b> لزيادة عدد المستويات.</p>",c:{q:"كيف يتغير نصف القطر عبر الدورة؟",o:["يقل","يزداد","لا يتغير","يتذبذب"],a:0,e:"تزداد شحنة النواة فيقل نصف القطر."}},
+{t:"طاقة التأين",h:"<p>طاقة التأين هي الطاقة اللازمة لنزع إلكترون من ذرة غازية. وهي <b>تزداد عبر الدورة</b> و<b>تقل أسفل المجموعة</b>.</p>",c:{q:"كيف تتغير طاقة التأين عبر الدورة؟",o:["تزداد","تقل","ثابتة","تصبح صفراً"],a:0,e:"الذرات الأصغر نصف قطر تتمسك بإلكتروناتها أكثر."}},
+{t:"الكهروسالبية",h:"<p>الكهروسالبية قدرة الذرة على جذب إلكترونات الرابطة. تزداد عبر الدورة وتقل أسفل المجموعة، وأعلى العناصر كهروسالبية هو <b>الفلور F</b>.</p>",c:{q:"أعلى العناصر كهروسالبية؟",o:["F","O","Cl","Cs"],a:0,e:"الفلور أعلاها في الجدول الدوري."}}];
+CONTENT["g2a-1-1"]={sec:S211,gen:FAC([wl,fr,0,0],B11)};
+CONTENT["g2a-1-2"]={sec:S212,gen:FAC([orbQ,0,0],B12)};
+CONTENT["g2a-1-3"]={sec:S213,gen:FAC([cf,vl,orbQ,0],B13)};
+CONTENT["g2a-2-1"]={sec:S221,gen:FAC([zn,0,0],B21)};
+CONTENT["g2a-2-2"]={sec:S222,gen:FAC([grp,0,0],B22)};
+CONTENT["g2a-2-3"]={sec:S223,gen:FAC([rad,ion,en,0],B23)};
+/* ===== كيمياء 2-1: الفصل 3 والفصل 4 (جزء) ===== */
+var SB='₀₁₂₃₄₅₆₇₈₉',CHG={'1':'⁺','2':'²⁺','3':'³⁺','-1':'⁻','-2':'²⁻','-3':'³⁻'};
+function sb(n){return n===1?'':String(n).split('').map(function(d){return SB[+d]}).join('')}
+function ionS(s,c){return s+CHG[String(c)]}
+var IONS=[['Na',11,1],['K',19,1],['Li',3,1],['Mg',12,2],['Ca',20,2],['Al',13,3],['O',8,-2],['S',16,-2],['Cl',17,-1],['F',9,-1],['Br',35,-1],['N',7,-3],['P',15,-3]];
+function ionQ(){var e=R(IONS),w=sh([1,2,3,-1,-2,-3].filter(function(c){return c!==e[2]})).slice(0,3);return mc('ما الأيون الأكثر شيوعاً الذي تكوّنه ذرة '+e[0]+' (العدد الذري '+e[1]+')؟',ionS(e[0],e[2]),w.map(function(c){return ionS(e[0],c)}),'تصل الذرة إلى التوزيع المستقر للغاز النبيل، فتكوّن '+ionS(e[0],e[2])+'.')}
+function ionE(){var e=R(IONS),ans=e[1]-e[2],w=sh([-3,-2,-1,0,1,2,3].map(function(d){return e[1]+d}).filter(function(x){return x!==ans&&x>0})).slice(0,3).map(String);return mc('كم إلكتروناً في أيون '+ionS(e[0],e[2])+' (العدد الذري للذرة '+e[1]+')؟',String(ans),w,'عدد الإلكترونات = العدد الذري − الشحنة = '+e[1]+' − ('+e[2]+') = '+ans+'.')}
+var CAT=[['Na',1,'الصوديوم'],['K',1,'البوتاسيوم'],['Mg',2,'المغنيسيوم'],['Ca',2,'الكالسيوم'],['Al',3,'الألومنيوم']],AN=[['Cl',1,'كلوريد'],['F',1,'فلوريد'],['Br',1,'بروميد'],['O',2,'أكسيد'],['S',2,'كبريتيد']];
+function gcd(a,b){return b?gcd(b,a%b):a}
+function frm(c,a,m,n){return c[0]+sb(m)+a[0]+sb(n)}
+function fmQ(){var c=R(CAT),a=R(AN),g=gcd(c[1],a[1]),m=a[1]/g,n=c[1]/g,ok=frm(c,a,m,n),cand=[frm(c,a,n,m),frm(c,a,a[1],c[1]),frm(c,a,1,1),frm(c,a,2,1),frm(c,a,1,2),frm(c,a,3,1),frm(c,a,1,3),frm(c,a,2,3)].filter(function(x,i,ar){return x!==ok&&ar.indexOf(x)===i});return mc('ما الصيغة الصحيحة للمركب الناتج من اتحاد '+ionS(c[0],c[1])+' مع '+ionS(a[0],-a[1])+'؟',ok,sh(cand).slice(0,3),'نوازن الشحنات: '+m+' × (+'+c[1]+') + '+n+' × (−'+a[1]+') = 0، فالصيغة '+ok+'.')}
+function nmQ(){var c=R(CAT),a=R(AN),g=gcd(c[1],a[1]),f=frm(c,a,a[1]/g,c[1]/g),nm=a[2]+' '+c[2],c2=R(CAT.filter(function(x){return x!==c})),a2=R(AN.filter(function(x){return x!==a}));return mc('ما اسم المركب الأيوني '+f+'؟',nm,[a[2]+' '+c2[2],a2[2]+' '+c[2],c[2]+' '+a[2]],'يُذكر الأنيون أولاً ثم الكاتيون: '+nm+'.')}
+var DB=[['N₂','ثلاثية'],['O₂','ثنائية'],['H₂','أحادية'],['Cl₂','أحادية'],['F₂','أحادية'],['Br₂','أحادية']];
+function bd(){var p=R(DB);return mc('ما نوع الرابطة التساهمية بين الذرتين في جزيء '+p[0]+'؟',p[1],['أحادية','ثنائية','ثلاثية','أيونية'].filter(function(x){return x!==p[1]}),'عدد الأزواج المشتركة في '+p[0]+' يجعل الرابطة '+p[1]+'.')}
+var MN=[['CO','أول أكسيد الكربون'],['CO₂','ثاني أكسيد الكربون'],['SO₂','ثاني أكسيد الكبريت'],['SO₃','ثالث أكسيد الكبريت'],['NO','أول أكسيد النيتروجين'],['NO₂','ثاني أكسيد النيتروجين'],['CCl₄','رابع كلوريد الكربون'],['PCl₃','ثالث كلوريد الفوسفور'],['PCl₅','خامس كلوريد الفوسفور'],['P₂O₅','خامس أكسيد ثنائي الفوسفور']];
+function mn(){var p=R(MN),rev=Math.random()<.5,w=sh(MN.filter(function(x){return x!==p})).slice(0,3);return rev?mc('ما اسم الجزيء '+p[0]+'؟',p[1],w.map(function(x){return x[1]}),'البادئة تدل على عدد الذرات: '+p[1]+'.'):mc('ما صيغة '+p[1]+'؟',p[0],w.map(function(x){return x[0]}),'البادئة تدل على عدد الذرات، فالصيغة '+p[0]+'.')}
+var B31=[
+{q:"عندما تفقد الذرة إلكتروناً تصبح؟",o:["أيوناً موجباً (كاتيوناً)","أيوناً سالباً","ذرة متعادلة","نظيراً"],a:0,e:"فقد الإلكترونات يجعل الشحنة موجبة."},
+{q:"أي العناصر تميل إلى تكوين أيونات موجبة؟",o:["الفلزات","اللافلزات","الغازات النبيلة","الهالوجينات"],a:0,e:"الفلزات تفقد إلكترونات التكافؤ."},
+{q:"لماذا تتكون الأيونات عادة؟",o:["للوصول إلى توزيع مستقر مثل الغاز النبيل","لزيادة الكتلة","لتقليل حجم النواة","لفقد البروتونات"],a:0,e:"الهدف هو مستوى خارجي ممتلئ."},
+{q:"الأيون السالب يسمى؟",o:["أنيون","كاتيون","نظير","جزيء"],a:0,e:"الأنيون أيون سالب."}];
+var B32=[
+{q:"الرابطة الأيونية هي؟",o:["قوة تجاذب كهربائي بين أيون موجب وأيون سالب","مشاركة بزوج إلكترونات","تجاذب بين الجزيئات","رابطة بين ذرتين فلزيتين"],a:0,e:"تتكون بانتقال الإلكترونات ثم التجاذب."},
+{q:"أي الخواص تنطبق على المركبات الأيونية الصلبة؟",o:["درجة انصهار عالية وهشة","موصلة جيدة للكهرباء","درجة انصهار منخفضة","قابلة للطرق"],a:0,e:"الروابط قوية والبلورة هشة."},
+{q:"متى توصل المركبات الأيونية الكهرباء؟",o:["عند انصهارها أو ذوبانها في الماء","وهي صلبة","دائماً","أبداً"],a:0,e:"لأن الأيونات تتحرك في الحالة المنصهرة والمحلول."},
+{q:"تزداد طاقة الشبكة البلورية بـ؟",o:["زيادة شحنة الأيونات ونقص نصف قطرها","نقص الشحنة","زيادة نصف القطر","زيادة الكتلة فقط"],a:0,e:"التجاذب أقوى مع شحنة أكبر ومسافة أقل."},
+{q:"وحدة الصيغة هي؟",o:["أبسط نسبة للأيونات في المركب الأيوني","جزيء واحد","ذرة واحدة","مول واحد"],a:0,e:"المركب الأيوني لا يتكون من جزيئات منفصلة."}];
+var B33=[
+{q:"أيون الكبريتات هو؟",o:["SO₄²⁻","SO₃²⁻","S²⁻","SO₄⁻"],a:0,e:"الكبريتات SO₄²⁻."},
+{q:"أيون النترات هو؟",o:["NO₃⁻","NO₂⁻","N³⁻","NH₄⁺"],a:0,e:"النترات NO₃⁻."},
+{q:"أيون الأمونيوم هو؟",o:["NH₄⁺","NH₃","NO₃⁻","OH⁻"],a:0,e:"الأمونيوم NH₄⁺ أيون موجب."},
+{q:"عند تسمية المركب الأيوني يُذكر أولاً؟",o:["الأنيون","الكاتيون","الأكبر كتلة","أي منهما"],a:0,e:"مثل: كلوريد الصوديوم."},
+{q:"مجموع الشحنات في وحدة الصيغة للمركب الأيوني؟",o:["صفر","+1","−1","يساوي عدد الذرات"],a:0,e:"المركب متعادل كهربائياً."}];
+var B34=[
+{q:"ما نموذج الرابطة الفلزية؟",o:["بحر الإلكترونات","أزواج مشتركة","انتقال كامل للإلكترونات","تجاذب بين الجزيئات"],a:0,e:"أيونات موجبة في بحر من إلكترونات التكافؤ."},
+{q:"تعود قابلية الفلزات للطرق إلى؟",o:["انزلاق الأيونات في بحر الإلكترونات دون تكسر الرابطة","تنافر الأيونات","تكسر الروابط","ضعف الرابطة"],a:0,e:"تنزلق الطبقات دون أن تنهار الرابطة."},
+{q:"السبيكة هي؟",o:["مخلوط من فلز مع عناصر أخرى","مركب أيوني","غاز نبيل","فلز نقي"],a:0,e:"تُصنع لتحسين الخواص."},
+{q:"الفولاذ سبيكة من؟",o:["الحديد والكربون","النحاس والقصدير","الذهب والفضة","الألومنيوم والمغنيسيوم"],a:0,e:"الفولاذ حديد وكربون."},
+{q:"سبب توصيل الفلزات للكهرباء؟",o:["حركة إلكترونات التكافؤ الحرة","الأيونات السالبة","الجزيئات","النيوترونات"],a:0,e:"الإلكترونات الحرة تنقل الشحنة."}];
+var B41=[
+{q:"تنشأ الرابطة التساهمية بـ؟",o:["مشاركة الإلكترونات بين ذرتين","انتقال الإلكترونات","تجاذب أيونين","بحر الإلكترونات"],a:0,e:"تتشارك الذرتان بزوج أو أكثر."},
+{q:"عدد الإلكترونات المشتركة في الرابطة الثنائية؟",o:["4","2","6","8"],a:0,e:"زوجان مشتركان = 4 إلكترونات."},
+{q:"أقصر الروابط وأقواها؟",o:["الثلاثية","الأحادية","الثنائية","كلها متساوية"],a:0,e:"زيادة الأزواج المشتركة تقرّب الذرتين وتقوّي الرابطة."},
+{q:"أي مما يلي جزيئات ثنائية الذرة؟",o:["H₂ و O₂ و N₂","NaCl و KBr","CO₂ و H₂O","Ne و Ar"],a:0,e:"هذه عناصر توجد كجزيئات ثنائية الذرة."},
+{q:"طول الرابطة هو؟",o:["المسافة بين نواتي الذرتين المرتبطتين","كتلة الرابطة","عدد الإلكترونات","طاقة الرابطة"],a:0,e:"تعريف طول الرابطة."}];
+var B42=[
+{q:"البادئة ثنائي تدل على كم ذرة؟",o:["2","3","1","4"],a:0,e:"ثنائي = 2."},
+{q:"البادئة ثلاثي تدل على؟",o:["3","2","4","5"],a:0,e:"ثلاثي = 3."},
+{q:"تُستعمل البادئات العددية في تسمية؟",o:["المركبات التساهمية الثنائية","المركبات الأيونية","السبائك","الفلزات"],a:0,e:"لبيان عدد الذرات في الجزيء."}];
+var S31=[
+{t:"لماذا تتكون الأيونات؟",h:"<p>تميل الذرات إلى الوصول إلى توزيع الغاز النبيل (ثمانية إلكترونات في المستوى الخارجي، وهي قاعدة الثمانية) بفقد الإلكترونات أو كسبها.</p>",c:{q:"تتكوّن الأيونات لتصل الذرة إلى؟",o:["توزيع مستقر مثل الغاز النبيل","كتلة أكبر","عدد ذري أكبر","نواة أصغر"],a:0,e:"هدف الذرة مستوى خارجي ممتلئ."}},
+{t:"الكاتيونات والأنيونات",h:"<p>الفلزات تفقد إلكترونات فتكوّن <b>كاتيونات</b> موجبة، واللافلزات تكسبها فتكوّن <b>أنيونات</b> سالبة.</p><div class='ex'>Na → Na⁺ + e⁻ &nbsp;&nbsp; Cl + e⁻ → Cl⁻</div>",c:{q:"ذرة Cl عندما تكسب إلكتروناً تصبح؟",o:["Cl⁻","Cl⁺","Cl²⁺","Cl²⁻"],a:0,e:"كسب إلكترون واحد يعطي شحنة 1−."}},
+{t:"شحنة الأيون من موقع العنصر",h:"<p>المجموعة 1: +1، المجموعة 2: +2، المجموعة 13: +3، المجموعة 15: −3، المجموعة 16: −2، المجموعة 17: −1.</p><div class='ex'>مثال: Mg²⁺ و O²⁻.</div>",c:{q:"الأيون الشائع للألومنيوم (المجموعة 13)؟",o:["Al³⁺","Al⁺","Al²⁺","Al³⁻"],a:0,e:"يفقد 3 إلكترونات."}}];
+var S32=[
+{t:"الرابطة الأيونية",h:"<p>هي قوة التجاذب الكهربائي بين الأيونات الموجبة والسالبة، وتتكون عادة بين فلز ولافلز بانتقال الإلكترونات.</p>",c:{q:"تتكون الرابطة الأيونية عادة بين؟",o:["فلز ولافلز","لافلزين","فلزين","غازين نبيلين"],a:0,e:"فلز يفقد ولافلز يكسب."}},
+{t:"خواص المركبات الأيونية",h:"<p>صلبة بلورية، درجة انصهارها عالية، هشة، وتوصل الكهرباء عند الانصهار أو الذوبان لا وهي صلبة. ومعظمها يذوب في الماء.</p>",c:{q:"لماذا لا يوصل NaCl الصلب الكهرباء؟",o:["لأن الأيونات ثابتة في مواضعها","لأنه لا يحتوي أيونات","لأنه غاز","لأنه فلز"],a:0,e:"لا تتحرك الأيونات في البلورة الصلبة."}},
+{t:"الشبكة البلورية وطاقتها",h:"<p>ترتَّب الأيونات في شبكة بلورية، وتعبّر <b>وحدة الصيغة</b> عن أبسط نسبة للأيونات. وتزداد <b>طاقة الشبكة</b> بزيادة الشحنة ونقص نصف القطر.</p>",c:{q:"أي المركبات الآتية طاقة شبكته أكبر غالباً؟",o:["MgO","NaCl","KBr","NaBr"],a:0,e:"شحنته 2+ و2−، وأيوناته صغيرة."}}];
+var S33=[
+{t:"كتابة الصيغة",h:"<p>تعكس الصيغة تعادل الشحنات: Na⁺ + Cl⁻ ⇒ NaCl، و Mg²⁺ + Cl⁻ ⇒ MgCl₂، و Al³⁺ + O²⁻ ⇒ Al₂O₃ (نتبادل الشحنات ونختصر).</p>",c:{q:"صيغة المركب من Mg²⁺ و Cl⁻؟",o:["MgCl₂","Mg₂Cl","MgCl","Mg₂Cl₂"],a:0,e:"تلزم شحنتان 1− لمعادلة 2+."}},
+{t:"تسمية المركبات الثنائية",h:"<p>نذكر الأنيون ثم الكاتيون، وينتهي اسم الأنيون أحادي الذرة بـ «يد»: كلوريد، أكسيد، كبريتيد. مثل NaCl: كلوريد الصوديوم.</p>",c:{q:"اسم المركب MgO؟",o:["أكسيد المغنيسيوم","المغنيسيوم أكسيد","أكسيد الصوديوم","كلوريد المغنيسيوم"],a:0,e:"الأنيون أولاً ثم الكاتيون."}},
+{t:"الأيونات عديدة الذرات",h:"<p>SO₄²⁻ كبريتات، NO₃⁻ نترات، CO₃²⁻ كربونات، OH⁻ هيدروكسيد، NH₄⁺ أمونيوم. وإذا لزم أكثر من أيون وضعناه بين قوسين مثل Ca(OH)₂.</p>",c:{q:"أيون الكربونات هو؟",o:["CO₃²⁻","CO₂","HCO₃⁻","C²⁻"],a:0,e:"الكربونات CO₃²⁻."}}];
+var S34=[
+{t:"بحر الإلكترونات",h:"<p>تتكون الرابطة الفلزية من أيونات فلزية موجبة منتظمة وسط بحر من إلكترونات التكافؤ الحرة الحركة.</p>",c:{q:"ما الذي يتحرك بحرية في الفلز؟",o:["إلكترونات التكافؤ","البروتونات","النيوترونات","الأيونات الموجبة"],a:0,e:"إلكترونات التكافؤ غير مرتبطة بذرة محددة."}},
+{t:"خواص الفلزات",h:"<p>توصيل جيد للحرارة والكهرباء، ولمعان، وقابلية للطرق والسحب لأن طبقات الأيونات تنزلق دون أن تنكسر الرابطة.</p>",c:{q:"سبب قابلية الفلز للطرق؟",o:["انزلاق الأيونات في بحر الإلكترونات","تكسر الأيونات","التنافر الأيوني","قوة الرابطة التساهمية"],a:0,e:"تبقى الرابطة سليمة أثناء الانزلاق."}},
+{t:"السبائك",h:"<p>السبيكة مخلوط من فلز مع فلز آخر أو لافلز لتحسين الخواص: الفولاذ (حديد وكربون)، والبرونز (نحاس وقصدير)، والنحاس الأصفر (نحاس وزنك).</p>",c:{q:"البرونز سبيكة من؟",o:["نحاس وقصدير","حديد وكربون","ذهب وفضة","ألومنيوم وزنك"],a:0,e:"البرونز نحاس وقصدير."}}];
+var S41=[
+{t:"الرابطة التساهمية",h:"<p>تنشأ بمشاركة زوج أو أكثر من الإلكترونات بين ذرتين لافلزيتين، لتصل كل ذرة إلى توزيع مستقر.</p>",c:{q:"تنشأ الرابطة التساهمية بـ؟",o:["مشاركة الإلكترونات","انتقال الإلكترونات","بحر الإلكترونات","تجاذب أيونين"],a:0,e:"تتشارك الذرتان بأزواج إلكترونية."}},
+{t:"أحادية وثنائية وثلاثية",h:"<p>زوج مشترك واحد (H₂): أحادية. زوجان (O₂): ثنائية. ثلاثة أزواج (N₂): ثلاثية. وكلما زاد عدد الأزواج قصر طول الرابطة وزادت قوتها.</p>",c:{q:"نوع الرابطة بين ذرتي النيتروجين في N₂؟",o:["ثلاثية","ثنائية","أحادية","أيونية"],a:0,e:"تشترك الذرتان بثلاثة أزواج."}},
+{t:"الجزيئات ثنائية الذرة",h:"<p>توجد عناصر H₂ و N₂ و O₂ و F₂ و Cl₂ و Br₂ و I₂ على صورة جزيئات ثنائية الذرة.</p>",c:{q:"أي مما يلي جزيء ثنائي الذرة؟",o:["O₂","Ne","Fe","Na"],a:0,e:"الأكسجين يوجد على صورة O₂."}}];
+var S42=[
+{t:"البادئات العددية",h:"<p>1 أول، 2 ثاني، 3 ثالث، 4 رابع، 5 خامس. وتدل على عدد الذرات في الجزيء.</p>",c:{q:"البادئة ثالث تدل على؟",o:["3 ذرات","ذرتين","4 ذرات","5 ذرات"],a:0,e:"ثالث = 3."}},
+{t:"تسمية المركبات التساهمية الثنائية",h:"<p>نذكر العدد ثم الاسم الثاني ثم العنصر الأول: CO₂ ثاني أكسيد الكربون، و SO₃ ثالث أكسيد الكبريت.</p>",c:{q:"اسم الجزيء CO؟",o:["أول أكسيد الكربون","ثاني أكسيد الكربون","أكسيد الكربون الثنائي","كربون أكسيد"],a:0,e:"ذرة أكسجين واحدة: أول أكسيد."}},
+{t:"من الاسم إلى الصيغة",h:"<p>رابع كلوريد الكربون ⇒ CCl₄. خامس أكسيد ثنائي الفوسفور ⇒ P₂O₅.</p>",c:{q:"صيغة ثالث كلوريد الفوسفور؟",o:["PCl₃","P₃Cl","PCl₅","P₃Cl₃"],a:0,e:"ثلاث ذرات كلور مع ذرة فوسفور."}}];
+CONTENT["g2a-3-1"]={sec:S31,gen:FAC([ionQ,ionE,0,0],B31)};
+CONTENT["g2a-3-2"]={sec:S32,gen:FAC([0,0,0,0,0],B32)};
+CONTENT["g2a-3-3"]={sec:S33,gen:FAC([fmQ,nmQ,0],B33)};
+CONTENT["g2a-3-4"]={sec:S34,gen:FAC([0,0,0,0,0],B34)};
+CONTENT["g2a-4-1"]={sec:S41,gen:FAC([bd,0,0],B41)};
+CONTENT["g2a-4-2"]={sec:S42,gen:FAC([mn,mn,0],B42)};
+/* ===== كيمياء 2-1: 4-3 و4-4 و4-5 و5-1 و5-2 ===== */
+var VE={H:1,C:4,N:5,O:6,F:7,Cl:7,S:6,P:5},AW={C:12,H:1,O:16,N:14,P:31};
+var EVL=[['H₂O',{H:2,O:1}],['CO₂',{C:1,O:2}],['NH₃',{N:1,H:3}],['CH₄',{C:1,H:4}],['HCl',{H:1,Cl:1}],['N₂',{N:2}],['O₂',{O:2}],['Cl₂',{Cl:2}],['CCl₄',{C:1,Cl:4}],['PCl₃',{P:1,Cl:3}],['H₂S',{H:2,S:1}],['SO₂',{S:1,O:2}]];
+function evQ(){var p=R(EVL),parts=[],t=0;Object.keys(p[1]).forEach(function(k){parts.push(p[1][k]+'×'+VE[k]);t+=p[1][k]*VE[k]});return mc('كم مجموع إلكترونات التكافؤ في جزيء '+p[0]+'؟',String(t),[t+2,t-2,t+4].map(String),'نجمع إلكترونات تكافؤ كل الذرات: '+parts.join(' + ')+' = '+t+'.')}
+var SHP=[['CO₂','خطي'],['BeCl₂','خطي'],['HCl','خطي'],['BF₃','مثلث مستوٍ'],['CH₄','رباعي الأوجه'],['CCl₄','رباعي الأوجه'],['NH₃','هرمي ثلاثي'],['H₂O','منحنٍ']];
+function shpQ(){var p=R(SHP);return mc('ما الشكل الهندسي لجزيء '+p[0]+'؟',p[1],sh(['خطي','منحنٍ','مثلث مستوٍ','رباعي الأوجه','هرمي ثلاثي'].filter(function(x){return x!==p[1]})).slice(0,3),'حسب نظرية VSEPR وعدد أزواج الإلكترونات حول الذرة المركزية، شكله '+p[1]+'.')}
+function angQ(){var p=R([['خطي','180°'],['مثلث مستوٍ','120°'],['رباعي الأوجه','109.5°']]);return mc('ما الزاوية بين الروابط في الشكل '+p[0]+' المثالي؟',p[1],['180°','120°','109.5°','90°'].filter(function(x){return x!==p[1]}),'الزاوية في الشكل '+p[0]+' هي '+p[1]+'.')}
+var ENV={H:2.1,C:2.5,N:3.0,O:3.5,Cl:3.0,Br:2.8,Na:0.9,K:0.8,Mg:1.2};
+function btQ(){var p=R([['H','Cl'],['O','H'],['Na','Cl'],['K','Br'],['Mg','O'],['C','O'],['N','H'],['Cl','Cl']]),d=Math.abs(ENV[p[0]]-ENV[p[1]]),t=d<0.4?'تساهمية غير قطبية':d<=1.7?'تساهمية قطبية':'أيونية';return mc('إذا كانت الكهروسالبية: '+p[0]+' = '+ENV[p[0]]+' و '+p[1]+' = '+ENV[p[1]]+'، فما نوع الرابطة بينهما؟',t,['تساهمية غير قطبية','تساهمية قطبية','أيونية','فلزية'].filter(function(x){return x!==t}),'فرق الكهروسالبية = '+fm(d)+'، وهو يدل على رابطة '+t+'.')}
+var MP=[['CO₂','غير قطبي'],['H₂O','قطبي'],['NH₃','قطبي'],['CH₄','غير قطبي'],['CCl₄','غير قطبي'],['HCl','قطبي'],['BF₃','غير قطبي'],['O₂','غير قطبي']];
+function mpQ(){var p=R(MP);return mc('جزيء '+p[0]+' هو؟',p[1],['قطبي','غير قطبي','أيوني','فلزي'].filter(function(x){return x!==p[1]}),p[1]==='قطبي'?'روابطه قطبية وشكله غير متماثل، فهو قطبي.':'روابطه غير قطبية أو أن قطبيتها تتلاشى بتماثل الشكل، فهو غير قطبي.')}
+function fstr(o,n){return Object.keys(o).map(function(k){return k+sb(o[k]*n)}).join('')}
+function fmass(o){var t=0;Object.keys(o).forEach(function(k){t+=o[k]*AW[k]});return t}
+var EMP=[[{C:1,H:2,O:1},[2,3,6]],[{C:1,H:2},[2,3,4]],[{C:1,H:1},[2,6]],[{N:1,O:2},[2]],[{H:1,O:1},[2]]];
+function uniq(a){return a.filter(function(x,i,ar){return ar.indexOf(x)===i})}
+function mfQ(){var e=R(EMP),b=e[0],n=R(e[1]),M=fmass(b)*n,ok=fstr(b,n),w=sh(uniq([1,2,3,4,5,6].filter(function(k){return k!==n}).map(function(k){return fstr(b,k)}))).slice(0,3);return mc('الصيغة الأولية لمركب هي '+fstr(b,1)+' وكتلته المولية '+M+' جم/مول. ما صيغته الجزيئية؟',ok,w,'كتلة الصيغة الأولية = '+fmass(b)+'، و n = '+M+' ÷ '+fmass(b)+' = '+n+'، فالصيغة '+ok+'.')}
+function rdQ(){var e=R(EMP),b=e[0],n=R(e[1]),ok=fstr(b,1),w=sh(uniq([2,3,4,5,6].map(function(k){return fstr(b,k)}))).slice(0,3);return mc('ما الصيغة الأولية للمركب '+fstr(b,n)+'؟',ok,w,'نقسم أعداد الذرات على العامل المشترك '+n+'، فنحصل على '+ok+'.')}
+var HYS=[['CuSO₄',160],['MgSO₄',120],['CaSO₄',136],['Na₂CO₃',106],['CoCl₂',130]];
+function hyQ(){var s=R(HYS),x=R([2,5,6,7,10]),anh=s[1]/10,hyd=anh+1.8*x,w=sh(uniq([x+1,x-1,x+2,x-2,x*2].filter(function(v){return v>0&&v!==x}))).slice(0,3).map(String);return mc('سُخّنت عينة كتلتها '+fm(hyd)+' جم من الملح المائي '+s[0]+'·xH₂O (الكتلة المولية للملح اللامائي '+s[1]+' جم/مول) فبقي '+fm(anh)+' جم من الملح اللامائي. ما قيمة x؟ (H₂O = 18)',String(x),w,'كتلة الماء = '+fm(hyd)+' − '+fm(anh)+' = '+fm(1.8*x)+' جم = '+fm(0.1*x)+' مول، ومولات الملح = '+fm(anh)+' ÷ '+s[1]+' = 0.1، إذن x = '+fm(0.1*x)+' ÷ 0.1 = '+x+'.')}
+var B43=[
+{q:"كم نقطة حول رمز لويس لذرة تكافؤها 6؟",o:["6","8","2","4"],a:0,e:"كل نقطة تمثل إلكترون تكافؤ."},
+{q:"أي الذرات تكون مركزية عادة في الجزيء؟",o:["الأقل كهروسالبية (غير الهيدروجين)","الأعلى كهروسالبية","الهيدروجين دائماً","أي ذرة"],a:0,e:"الهيدروجين طرفي دائماً."},
+{q:"قاعدة الثمانية تعني أن الذرة تسعى إلى؟",o:["8 إلكترونات في مستواها الخارجي","8 بروتونات","8 نيوترونات","8 مستويات"],a:0,e:"هذا هو توزيع الغاز النبيل."},
+{q:"الرنين يعني أن للجزيء؟",o:["أكثر من تركيب لويس مقبول","رابطة أيونية","شكلاً خطياً فقط","كتلة متغيرة"],a:0,e:"مثل جزيء الأوزون O₃."}];
+var B44=[
+{q:"تقوم نظرية VSEPR على أن أزواج الإلكترونات؟",o:["تتنافر وتبتعد قدر الإمكان","تتجاذب","ثابتة المواضع","تنتقل إلى النواة"],a:0,e:"التنافر هو ما يحدد الشكل."},
+{q:"لماذا زاوية H₂O أقل من 109.5°؟",o:["الأزواج الحرة تدفع أكثر من أزواج الرابطة","الأكسجين أصغر من الهيدروجين","الهيدروجين أخف","لا يوجد سبب"],a:0,e:"للأكسجين زوجان حران."},
+{q:"كم زوجاً حراً على ذرة N في NH₃؟",o:["1","0","2","3"],a:0,e:"للنيتروجين زوج حر واحد."},
+{q:"أي جزيء له شكل مثلث مستوٍ؟",o:["BF₃","NH₃","H₂O","CO₂"],a:0,e:"ثلاثة أزواج رابطة ولا زوج حر."}];
+var B45=[
+{q:"تكون الرابطة تساهمية غير قطبية عندما يكون فرق الكهروسالبية؟",o:["أقل من 0.4","بين 0.4 و1.7","أكبر من 1.7","يساوي 4"],a:0,e:"فرق صغير جداً."},
+{q:"لماذا CO₂ غير قطبي رغم أن روابطه قطبية؟",o:["لأن شكله الخطي المتماثل يلغي القطبية","لأنه أيوني","لأنه فلز","لأنه غير مترابط"],a:0,e:"تتلاشى القطبيات بالتماثل."},
+{q:"يذوب الجزيء القطبي غالباً في؟",o:["مذيب قطبي مثل الماء","مذيب غير قطبي","لا يذوب","الزيت"],a:0,e:"الشبيه يذيب الشبيه."},
+{q:"الجزيء القطبي له؟",o:["طرف موجب جزئياً وطرف سالب جزئياً","شحنة كاملة","لا شحنات إطلاقاً","أيونات"],a:0,e:"توزيع الشحنة غير متماثل."}];
+var B51=[
+{q:"الصيغة الأولية هي؟",o:["أبسط نسبة عددية صحيحة بين ذرات المركب","عدد الذرات الفعلي","كتلة المركب","عدد المولات"],a:0,e:"تعريف الصيغة الأولية."},
+{q:"في الصيغة الجزيئية = الصيغة الأولية × n، ما قيمة n؟",o:["الكتلة المولية للمركب ÷ كتلة الصيغة الأولية","كتلة الصيغة الأولية ÷ الكتلة المولية","عدد الذرات","عدد المولات"],a:0,e:"هكذا نجد n."},
+{q:"أول خطوة لإيجاد الصيغة الأولية من النسب المئوية؟",o:["افتراض عينة كتلتها 100 جم وتحويل الكتل إلى مولات","ضرب النسب","جمع الكتل","القسمة على الحجم"],a:0,e:"نبدأ بكتل العناصر في 100 جم."}];
+var B52=[
+{q:"الملح المائي هو؟",o:["ملح يحتوي عدداً ثابتاً من جزيئات الماء في بلورته","ملح مذاب في الماء فقط","محلول","غاز"],a:0,e:"الماء جزء من بنية البلورة."},
+{q:"ماذا يحدث عند تسخين الملح المائي؟",o:["يفقد ماء التبلور ويتحول إلى ملح لامائي","يزداد وزنه","يتحلل إلى عناصره","لا يتغير"],a:0,e:"يُطرد الماء بالتسخين."},
+{q:"ماذا تعني النقطة في CuSO₄·5H₂O؟",o:["ارتباط 5 جزيئات ماء بكل وحدة صيغة","عملية ضرب","جمع كتل","رابطة أيونية"],a:0,e:"خمس جزيئات ماء لكل وحدة صيغة."},
+{q:"لون كبريتات النحاس المائية؟",o:["أزرق","أبيض","أخضر","أحمر"],a:0,e:"الأزرق للمائي، ويصير أبيض عند فقد الماء."}];
+var S43=[
+{t:"رموز لويس النقطية",h:"<p>تمثّل النقاط حول رمز العنصر إلكترونات التكافؤ، فعدد النقاط يساوي عدد إلكترونات التكافؤ في عناصر المجموعات الرئيسية.</p>",c:{q:"كم نقطة حول رمز لويس للأكسجين (المجموعة 16)؟",o:["6","8","2","4"],a:0,e:"للأكسجين 6 إلكترونات تكافؤ."}},
+{t:"خطوات رسم تركيب لويس",h:"<p>1) اجمع إلكترونات التكافؤ لكل الذرات.<br>2) ضع الذرة المركزية (غالباً الأقل كهروسالبية، والهيدروجين طرفي دائماً) وصلها بروابط أحادية.<br>3) أكمل الثمانيات للذرات الطرفية ثم المركزية.<br>4) إن نقص عدد الإلكترونات للمركزية فاستعمل روابط متعددة.</p><div class='ex'><b>مثال H₂O:</b> مجموع الإلكترونات = 2×1 + 6 = 8.</div>",c:{q:"كم إلكترون تكافؤ في جزيء H₂O؟",o:["8","10","6","2"],a:0,e:"2×1 + 1×6 = 8."}},
+{t:"الرنين واستثناءات الثمانية",h:"<p>بعض الجزيئات لها أكثر من تركيب لويس مقبول (<b>رنين</b>) مثل O₃. وتوجد استثناءات لقاعدة الثمانية مثل BF₃ (أقل من ثمانية) و PCl₅ (أكثر من ثمانية).</p>",c:{q:"الرنين يعني أن للجزيء؟",o:["أكثر من تركيب لويس مقبول","رابطة أيونية","شكلاً خطياً فقط","كتلة متغيرة"],a:0,e:"مثل الأوزون O₃."}}];
+var S44=[
+{t:"نظرية VSEPR",h:"<p>تتنافر أزواج إلكترونات التكافؤ حول الذرة المركزية فتبتعد قدر الإمكان، وهذا يحدد الشكل الهندسي للجزيء.</p>",c:{q:"ما أساس نظرية VSEPR؟",o:["تنافر أزواج الإلكترونات","تجاذب النواتين","انتقال الإلكترونات","كتلة الذرات"],a:0,e:"التنافر بين الأزواج هو الأساس."}},
+{t:"الأشكال الشائعة",h:"<p>• خطي (180°): CO₂.<br>• مثلث مستوٍ (120°): BF₃.<br>• رباعي الأوجه (109.5°): CH₄.<br>• هرمي ثلاثي (نحو 107°): NH₃.<br>• منحنٍ (نحو 104.5°): H₂O.</p>",c:{q:"شكل جزيء CH₄؟",o:["رباعي الأوجه","خطي","منحنٍ","مثلث مستوٍ"],a:0,e:"أربعة أزواج رابطة ولا زوج حر."}},
+{t:"أثر الأزواج الحرة",h:"<p>الأزواج الحرة تتنافر أكثر من أزواج الرابطة فتصغّر الزاوية: في NH₃ زوج حر واحد فتقل الزاوية عن 109.5°، وفي H₂O زوجان حران فتقل أكثر.</p>",c:{q:"عدد الأزواج الحرة على الأكسجين في H₂O؟",o:["2","1","0","3"],a:0,e:"للأكسجين زوجان حران."}}];
+var S45=[
+{t:"الكهروسالبية ونوع الرابطة",h:"<p>حسب فرق الكهروسالبية بين الذرتين: أقل من 0.4 تساهمية غير قطبية، من 0.4 إلى 1.7 تساهمية قطبية، وأكثر من 1.7 تقريباً أيونية.</p>",c:{q:"فرق كهروسالبية مقداره 1.0 يدل على رابطة؟",o:["تساهمية قطبية","تساهمية غير قطبية","أيونية","فلزية"],a:0,e:"1.0 بين 0.4 و1.7."}},
+{t:"الجزيئات القطبية وغير القطبية",h:"<p>يكون الجزيء قطبياً إذا كانت روابطه قطبية وشكله غير متماثل (H₂O و NH₃). ويكون غير قطبي إذا تلاشت قطبية الروابط بتماثل الشكل (CO₂ و CH₄).</p>",c:{q:"أي هذه الجزيئات غير قطبي؟",o:["CO₂","H₂O","NH₃","HCl"],a:0,e:"شكله خطي متماثل فتتلاشى القطبية."}},
+{t:"القطبية والذوبان",h:"<p>الجزيء القطبي له طرف موجب جزئياً وطرف سالب جزئياً، فيذوب في المذيبات القطبية كالماء، وتكون قواه بين الجزيئية أقوى.</p>",c:{q:"يذوب الجزيء القطبي غالباً في؟",o:["الماء","الزيوت","الهكسان","كلها بالتساوي"],a:0,e:"الشبيه يذيب الشبيه."}}];
+var S51=[
+{t:"الصيغة الأولية",h:"<p>الصيغة الأولية هي أبسط نسبة عددية صحيحة بين ذرات العناصر في المركب. مثل CH₂O للجلوكوز C₆H₁₂O₆.</p>",c:{q:"الصيغة الأولية للمركب C₆H₁₂O₆؟",o:["CH₂O","C₂H₄O₂","C₃H₆O₃","C₆H₁₂O₆"],a:0,e:"نقسم على 6."}},
+{t:"من النسب المئوية إلى الصيغة الأولية",h:"<p>1) افترض عينة كتلتها 100 جم.<br>2) حوّل كتل العناصر إلى مولات.<br>3) اقسم على أصغر عدد مولات.<br>4) حوّل النسب إلى أعداد صحيحة.</p><div class='ex'><b>مثال:</b> 40% C و 6.7% H و 53.3% O ⇒ C: 3.33 مول، H: 6.7 مول، O: 3.33 مول ⇒ النسبة 1 : 2 : 1 ⇒ <b>CH₂O</b>.</div>",c:{q:"أول خطوة لإيجاد الصيغة الأولية من النسب المئوية؟",o:["افتراض عينة 100 جم وتحويل الكتل إلى مولات","ضرب النسب","جمع الكتل","القسمة على الحجم"],a:0,e:"نبدأ بكتل العناصر في 100 جم."}},
+{t:"الصيغة الجزيئية",h:"<p><span class='f'>الصيغة الجزيئية = الصيغة الأولية × n</span> حيث <span class='f'>n = الكتلة المولية ÷ كتلة الصيغة الأولية</span></p><div class='ex'><b>مثال:</b> CH₂O كتلتها 30، والكتلة المولية 180 ⇒ n = 6 ⇒ <b>C₆H₁₂O₆</b>.</div>",c:{q:"الصيغة الأولية CH₂ والكتلة المولية 42، فالصيغة الجزيئية؟",o:["C₃H₆","C₂H₄","CH₂","C₄H₈"],a:0,e:"n = 42 ÷ 14 = 3."}}];
+var S52=[
+{t:"ما الأملاح المائية؟",h:"<p>الملح المائي يحتوي عدداً ثابتاً من جزيئات الماء داخل بلورته (ماء التبلور). وتُكتب بعد نقطة، مثل <span class='f'>CuSO₄·5H₂O</span>.</p>",c:{q:"ماذا تعني النقطة في CuSO₄·5H₂O؟",o:["ارتباط 5 جزيئات ماء بكل وحدة صيغة","عملية ضرب","جمع كتل","رابطة أيونية"],a:0,e:"خمس جزيئات ماء لكل وحدة صيغة."}},
+{t:"النسبة المئوية للماء",h:"<p><span class='f'>% الماء = كتلة الماء ÷ الكتلة المولية للملح المائي × 100</span></p><div class='ex'><b>مثال:</b> CuSO₄·5H₂O: الملح اللامائي 160، والماء 5×18 = 90، والكلي 250 ⇒ 90 ÷ 250 × 100 = <b>36%</b>.</div>",c:{q:"كتلة 5 جزيئات ماء (H₂O = 18)؟",o:["90","18","36","160"],a:0,e:"5 × 18 = 90."}},
+{t:"التسخين وإزالة الماء",h:"<p>عند تسخين الملح المائي يُطرد الماء ويبقى الملح اللامائي، وتتغير الخواص، فكبريتات النحاس المائية زرقاء وتتحول إلى بيضاء عند فقد الماء.</p>",c:{q:"ماذا يبقى بعد تسخين الملح المائي؟",o:["الملح اللامائي","الماء فقط","عناصر الملح","لا شيء"],a:0,e:"يتبخر الماء ويبقى الملح اللامائي."}}];
+CONTENT["g2a-4-3"]={sec:S43,gen:FAC([evQ,evQ,0,0],B43)};
+CONTENT["g2a-4-4"]={sec:S44,gen:FAC([shpQ,angQ,shpQ,0],B44)};
+CONTENT["g2a-4-5"]={sec:S45,gen:FAC([btQ,mpQ,btQ,0],B45)};
+CONTENT["g2a-5-1"]={sec:S51,gen:FAC([mfQ,rdQ,mfQ,0],B51)};
+CONTENT["g2a-5-2"]={sec:S52,gen:FAC([hyQ,hyQ,0,0],B52)};
+
+
+
+
+
+/* ===== الواجهة والمنطق ===== */
+var app=document.getElementById('app'),S={},L,SEC,GEN,fbOn=false,auth,db,tm,T=[],qi=0,sc=0,dn=false;
+document.getElementById('h1').textContent='منصة '+CONFIG.platform;
+document.getElementById('sub').textContent='إعداد وإشراف: أ. حسين العيسي'+(CONFIG.school?' | '+CONFIG.school:'');
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function dberr(e){var c=(e&&e.code)||'',m=/permission/.test(c)?'قواعد Firestore لا تسمح بالعملية. تأكد أنها منشورة في المشروع hussain-chem48.':/not-found|failed-precondition/.test(c)?'قاعدة بيانات Firestore غير منشأة في هذا المشروع.':/unavailable/.test(c)?'تعذّر الوصول إلى الخادم. تحقق من الإنترنت.':'';return '<p>'+m+'</p><p class="note">رمز الخطأ: '+esc(c||String(e))+'</p><button class="go" id="rl">إعادة المحاولة</button>'}
+function showErr(t,e){go('<div class="card"><h2>'+t+'</h2>'+dberr(e)+'</div>');$('rl').onclick=function(){location.reload()}}
+function go(h){clearInterval(tm);app.innerHTML=h;window.scrollTo(0,0)}
+function on(sel,fn){app.querySelectorAll(sel).forEach(function(b){b.onclick=function(){fn(b.dataset)}})}
+function $(i){return document.getElementById(i)}
+function isAdmin(){return fbOn&&S.user&&CONFIG.adminEmail&&String(S.user.email||'').toLowerCase()===CONFIG.adminEmail.toLowerCase()}
+function start(){go('<div class="card">'+(MSG?'<div class="exp">'+MSG+'</div>':'')+'<h2>مرحبًا بك عزيزي الطالب في منصة شغف الكيمياء التعليمية.</h2><p>هُنا تبدأ رحلتك نحو فهم الكيمياء، واكتشاف أسرارها، واستيعاب مفاهيمها، والتعلّم بمتعة.</p><p>تعلّم، اكتشف، اختبر معرفتك، وانطلق نحو التميز في عالم الكيمياء.</p><button class="go" id="s">ابدأ رحلتك التعليمية <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button></div>');$('s').onclick=info;MSG=''}
+function info(){
+ var o=Object.keys(BOOKS).map(function(k){return '<option value="'+k+'"'+(S.book===k?' selected':'')+'>'+BOOKS[k].n+' ('+BOOKS[k].g+')</option>'}).join('');
+ go('<div class="card"><h2>بيانات الطالب</h2><p class="note">* يرجى إكمال كافة البيانات التالية لتتمكن من الدخول للمنصة.</p><label for="n">الاسم الكامل</label><input id="n" autocomplete="off" value="'+esc(S.name)+'"><p class="err" id="en"></p><label for="b">الصف</label><select id="b"><option value="">اختر الصف...</option>'+o+'</select><label for="c">الشعبة</label><input id="c" autocomplete="off" value="'+esc(S.sec)+'"><p class="err" id="er"></p><button class="go big" id="nx">التالي</button></div>');
+ $('nx').onclick=function(){var n=$('n').value.trim(),c=$('c').value.trim(),b=$('b').value,bad=false;
+  if(n.split(/\s+/).filter(Boolean).length<3){$('en').textContent='لابد من كتابة الاسم الكامل ( ثلاثي على الأقل ) .';bad=true}else $('en').textContent='';
+  if(!b||!c){$('er').textContent='يرجى اختيار الصف وكتابة الشعبة.';bad=true}else $('er').textContent='';
+  if(bad)return;S.name=n;S.sec=c;S.book=b;login()}}
+function login(){
+ if(fbOn&&S.user){afterAuth(S.user);return}
+ if(!fbOn&&S.uid==='demo'){lessons();return}
+ if(!fbOn){go('<div class="card"><h2>وضع تجريبي</h2><p>ربط حسابات Google غير مفعّل بعد، لذلك لن تُحفظ نتيجتك عند المعلم.</p><button class="go" id="d">متابعة</button></div>');$('d').onclick=function(){S.uid='demo';S.res={};lessons()};return}
+ go('<div class="card"><h2>تسجيل الدخول</h2><p>ادخل بحساب Google الخاص بك لتُسجَّل نتائجك باسمك.</p><button class="go" id="g">الدخول بحساب Google</button><p class="note">إن لم يفتح الدخول، افتح الرابط في متصفح Chrome أو Safari وليس من داخل تطبيق آخر، وتأكد من السماح بالنوافذ المنبثقة.</p><p class="note" id="er"></p><h3>ليس لديك حساب Google؟</h3><p class="note">ادخل برمز شعبتك الذي أعطاك إياه معلمك.</p><input id="cd" dir="ltr" placeholder="مثال: CHAM101" autocomplete="off"><button class="go alt" id="cb2">الدخول بالرمز</button><p class="note" id="er2"></p></div>');
+ $('cb2').onclick=function(){var ci=codeInfo($('cd').value),e2=$('er2');if(!ci){e2.textContent='الرمز غير صحيح.';return}if(GR[ci.grade].indexOf(S.book)<0){e2.textContent='هذا الرمز لا يخص الصف الذي اخترته.';return}S.code=ci.code;S.sec=ci.section;auth.signInAnonymously().catch(function(e){e2.textContent=/operation-not-allowed|admin-restricted/.test(e.code||'')?'الدخول بالرمز غير مفعّل بعد. أبلغ المعلم.':'تعذّر الدخول ('+(e.code||'')+').'})};
+ $('g').onclick=function(){S.code='';auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(e){$('er').textContent=/api-key|invalid-app|configuration/.test(e.code||'')?'إعداد Firebase غير صحيح ('+e.code+'). أبلغ المعلم.':'تعذّر تسجيل الدخول ('+(e.code||'')+'). أعد المحاولة.'})}}
+function afterAuth(u){
+ S.user=u;S.uid=u.uid;S.res=null;S.sid=Date.now()+'-'+Math.random().toString(36).slice(2);var ref=db.collection('students').doc(u.uid),FV=firebase.firestore.FieldValue;
+ (S.name&&S.sec?ref.set({name:S.name,section:S.sec,book:S.book,email:u.email||'',code:S.code||'',via:u.isAnonymous?'code':'google',sid:S.sid,seen:FV.serverTimestamp()},{merge:true}).then(function(){return 1}):ref.get().then(function(d){if(d.exists){var x=d.data();S.name=x.name;S.sec=x.section;S.book=x.book;S.code=x.code||'';return ref.set({sid:S.sid,seen:FV.serverTimestamp()},{merge:true}).then(function(){return 1})}return 0}))
+ .then(function(ok){if(!ok){info();return}if(unsub)unsub();unsub=ref.onSnapshot(function(d){var x=d.data();if(x&&x.sid&&x.sid!==S.sid)kick()},function(){});lessons()},function(e){showErr('تعذّر الاتصال بقاعدة البيانات',e)})}
+function lessons(){
+ var B=BOOKS[S.book];
+ var get=S.res?Promise.resolve(S.res):db.collection('results').where('uid','==',S.uid).get().then(function(q){var m={};q.forEach(function(d){m[d.data().lessonId]=d.data()});return m});
+ get.then(function(m){S.res=m;var pts=0;
+  Object.keys(m).forEach(function(k){if(m[k].passed&&k.indexOf(S.book+'-')===0)pts+=m[k].points||0});
+  var h='<div class="card"><div class="meta"><span>'+esc(S.name)+' | الشعبة '+esc(S.sec)+'</span></div><h2>'+B.g+' - '+B.n+'</h2><p>مجموع درجاتك في هذا الكتاب: <b>'+pts+'</b></p>';
+  if(!B.ch.length)h+='<p>دروس هذا الكتاب قيد الإعداد.</p>';
+  var lock=false;B.ch.forEach(function(c){h+='<h3>'+c[0]+'</h3><div class="ls">';c[1].forEach(function(l){var id=S.book+'-'+l[0],r=m[id],has=CONTENT[id],ps=r&&r.passed,av=has&&!lock;if(has&&!ps)lock=true;
+   h+='<button '+(av?'data-l="'+id+'"':'disabled')+'><span>'+l[0]+' '+l[1]+'</span><em>'+(ps?'✔ '+r.percent+'%':has?(av?(r?'محاولات: '+r.attempts:'ابدأ'):'🔒 أكمل السابق'):'قريباً')+'</em></button>'});h+='</div>'});
+  h+='<button class="go alt" id="cb">تغيير الكتاب</button> '+(fbOn?'<button class="go alt" id="so">خروج</button> ':'')+(isAdmin()?'<button class="go" id="ad">لوحة المعلم</button>':'')+'</div>';
+  go(h);on('[data-l]',function(d){openL(d.l)});$('cb').onclick=info;
+  if($('so'))$('so').onclick=function(){if(unsub){unsub();unsub=null}S={};auth.signOut()};if($('ad'))$('ad').onclick=admin},
+  function(e){showErr('تعذّر تحميل نتائجك',e)})}
+function openL(id){
+ var num=id.slice(S.book.length+1),t='';BOOKS[S.book].ch.forEach(function(c){c[1].forEach(function(l){if(l[0]===num)t=l[1]})});
+ L=Object.assign({},DEF,CONFIG.lessons[id]||{},{id:id,num:num,title:t});SEC=CONTENT[id].sec;GEN=CONTENT[id].gen;
+ var r=S.res&&S.res[id];
+ if(r&&r.passed){go('<div class="card"><h2>أنهيت هذا الدرس</h2><p>نجحت فيه بنسبة '+r.percent+'% وحصلت على '+r.points+' درجات. لا يُعاد الاختبار بعد النجاح.</p><button class="go" id="b">رجوع للدروس</button></div>');$('b').onclick=lessons;return}
+ sec(0)}
+function steps(k,tot){var h='<div class="steps">';for(var i=0;i<tot;i++)h+='<i class="'+(i<k?'dn':i===k?'on':'')+'"></i>';return h+'</div>'}
+function sec(k){
+ var d=SEC[k],left=L.minRead;
+ go('<div class="card">'+steps(k,SEC.length)+'<div class="meta"><span>'+L.title+' - الجزء '+(k+1)+' من '+SEC.length+'</span></div><h2>'+d.t+'</h2>'+(k===0?vid():'')+d.h+'<button class="go" id="nx" disabled></button> <button class="go alt" id="ex">خروج</button></div>');
+ var b=$('nx');$('ex').onclick=lessons;
+ function tick(){if(left>0){b.textContent='اقرأ جيداً... '+left+' ث';left--}else{clearInterval(tm);b.disabled=false;b.textContent='فهمت، أجب عن سؤال الفهم'}}
+ tick();tm=setInterval(tick,1000);b.onclick=function(){chk(k)}}
+function chk(k){
+ var c=SEC[k].c;
+ go('<div class="card">'+steps(k,SEC.length)+'<div class="meta"><span>سؤال فهم: الجزء '+(k+1)+'</span></div><p class="q">'+c.q+'</p>'+c.o.map(function(t,i){return '<button class="opt" data-k="'+i+'">'+t+'</button>'}).join('')+'<div id="fb"></div></div>');
+ app.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){
+  var i=+b.dataset.k,fb=$('fb');
+  if(i===c.a){app.querySelectorAll('.opt').forEach(function(o){o.disabled=true});b.classList.add('ok');
+   fb.innerHTML=fbBox(true,c.e)+'<button class="go" id="n2">'+(k===SEC.length-1?'ابدأ اختبار الدرس':'الجزء التالي')+'</button>';
+   $('n2').onclick=function(){k===SEC.length-1?test():sec(k+1)}}
+  else{b.classList.add('bad');b.disabled=true;fb.innerHTML=fbBox(false,'حاول مرة أخرى، وإن احتجت فراجع الجزء من جديد.')+'<button class="go alt" id="bk">أعد قراءة الجزء</button>';$('bk').onclick=function(){sec(k)}}}})}
+function test(){T=GEN(L.nQ);qi=0;sc=0;W=[];LV=0;INTEST=true;tq()}
+function tq(){
+ if(qi>=T.length)return result();
+ var x=T[qi];dn=false;
+ go(wm()+'<div class="card"><div class="steps">'+T.map(function(_,i){return '<i class="'+(i<qi?'dn':i===qi?'on':'')+'"></i>'}).join('')+'</div><div class="meta"><span>اختبار الدرس</span><span>السؤال '+(qi+1)+' من '+T.length+'</span></div><p class="q">'+x.q+'</p>'+x.o.map(function(t,i){return '<button class="opt" data-k="'+i+'">'+t+'</button>'}).join('')+'<div id="fb"></div></div>');
+ app.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){
+  if(dn)return;dn=true;var i=+b.dataset.k;
+  app.querySelectorAll('.opt').forEach(function(o,n){o.disabled=true;if(n===x.a)o.classList.add('ok');else if(n===i)o.classList.add('bad')});
+  if(i===x.a)sc++;else W.push({q:x.q,a:x.o[x.a],y:x.o[i],e:x.e});
+  $('fb').innerHTML=fbBox(i===x.a,(i===x.a?'':'الإجابة الصحيحة موضحة بالأخضر. ')+x.e)+'<button class="go" id="nq">'+(qi===T.length-1?'اعرض النتيجة':'السؤال التالي')+'</button>';
+  $('nq').onclick=function(){qi++;tq()}}})}
+function result(){
+ var p=Math.round(sc/T.length*100),ok=p>=L.pass,pts=ok?L.points:0,prev=S.res&&S.res[L.id],att=(prev?prev.attempts:0)+1;
+ INTEST=false;var rec=mkRec(p,ok,pts,att);
+ S.res=S.res||{};S.res[L.id]=rec;
+ go('<div class="card"><div class="meta">نتيجتك</div><div class="score">'+p+'%</div><p>'+(ok?'ممتاز! نجحت في الدرس وحصلت على '+pts+' درجات.':'لم تصل بعد إلى '+L.pass+'%. راجع الدرس وأعد الاختبار، وستأتيك أسئلة جديدة.')+'</p><p class="note" id="sv">'+(fbOn?'جارٍ حفظ نتيجتك...':'وضع تجريبي: النتيجة غير محفوظة.')+'</p>'+fbk(p)+(ok?'':vid())+(ok?'':'<button class="go" id="rt">أعد الاختبار بأسئلة جديدة</button> <button class="go alt" id="rv">راجع الدرس</button> ')+'<button class="go alt" id="bl">رجوع للدروس</button></div>');
+ if($('rt')){$('rt').onclick=test;$('rv').onclick=function(){sec(0)}}$('bl').onclick=lessons;
+ if(fbOn){var data=Object.assign({},rec,{updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  db.collection('results').doc(S.uid+'_'+L.id).set(data).then(function(){$('sv')&&($('sv').textContent='تم حفظ نتيجتك عند المعلم.')},function(){$('sv')&&($('sv').textContent='تعذّر حفظ النتيجة. تحقق من الإنترنت، ثم أعد الاختبار.')})}}
+function admin(){
+ go('<div class="card"><h2>لوحة المعلم</h2><p>جارٍ التحميل...</p></div>');
+ Promise.all([db.collection('students').get(),db.collection('results').get()]).then(function(r){
+  var st=[],rs=[];r[0].forEach(function(d){st.push(d.data())});r[1].forEach(function(d){rs.push(d.data())});
+  var ts=function(x){return x&&x.seconds?x.seconds:0},dt=function(x){return x&&x.toDate?x.toDate().toLocaleString('ar-SA'):''};
+  rs.sort(function(a,b){return ts(b.updatedAt)-ts(a.updatedAt)});st.sort(function(a,b){return ts(b.seen)-ts(a.seen)});
+  var h='<div class="card"><h2>لوحة المعلم</h2><p>الطلاب الذين دخلوا: <b>'+st.length+'</b> | نتائج مسجلة: <b>'+rs.length+'</b></p><button class="go" id="csv">تنزيل النتائج CSV</button> <button class="go alt" id="bk">رجوع</button><h3>النتائج</h3><div class="tw"><table class="tb"><tr><th>الاسم</th><th>الشعبة</th><th>الدرس</th><th>%</th><th>الدرجة</th><th>محاولات</th><th>مغادرات</th><th>الدخول</th><th>الوقت</th></tr>'+
+   rs.map(function(x){return '<tr><td>'+esc(x.name)+'</td><td>'+esc(x.section)+'</td><td>'+esc((BOOKS[x.book]||{}).n+' '+x.title)+'</td><td>'+x.percent+'</td><td>'+x.points+'</td><td>'+x.attempts+'</td><td>'+(x.leaves||0)+'</td><td>'+(x.via==='code'?'رمز '+esc(x.code):'Google')+'</td><td>'+dt(x.updatedAt)+'</td></tr>'}).join('')+
+   '</table></div><h3>الطلاب الذين دخلوا</h3><div class="tw"><table class="tb"><tr><th>الاسم</th><th>الشعبة</th><th>الكتاب</th><th>آخر دخول</th></tr>'+
+   st.map(function(x){return '<tr><td>'+esc(x.name)+'</td><td>'+esc(x.section)+'</td><td>'+esc((BOOKS[x.book]||{}).n)+'</td><td>'+dt(x.seen)+'</td></tr>'}).join('')+'</table></div></div>';
+  go(h);$('bk').onclick=lessons;
+  $('csv').onclick=function(){var q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'};
+   var rows=[['الاسم','الشعبة','الكتاب','الدرس','النسبة','الدرجة','المحاولات','البريد','الوقت']].concat(rs.map(function(x){return [x.name,x.section,(BOOKS[x.book]||{}).n,x.title,x.percent,x.points,x.attempts,x.email,dt(x.updatedAt)]}));
+   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+rows.map(function(r){return r.map(q).join(',')}).join('\n')],{type:'text/csv'}));a.download='results.csv';a.click()}},
+  function(){go('<div class="card"><h2>تعذّر تحميل البيانات</h2><p>تحقق من قواعد Firestore وبريد المعلم في الإعدادات.</p><button class="go" id="bk">رجوع</button></div>');$('bk').onclick=lessons})}
+(function init(){var c=CONFIG.firebase;
+ if(c.apiKey&&window.firebase){try{firebase.initializeApp(c);auth=firebase.auth();db=firebase.firestore();fbOn=true}catch(e){fbOn=false}}
+ if(fbOn)auth.onAuthStateChanged(function(u){if(u)afterAuth(u);else{S.user=null;start()}});else start()})();
+</script>
+</body>
+</html>
